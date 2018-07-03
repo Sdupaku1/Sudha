@@ -68,9 +68,20 @@ echo 'test123' > test.txt  ----> entered the text and created file
 
 git add test.txt ----- > add this file to git
 
+----------------->git commit( Basically Commit means saving files to local rep)
+
+
+It refers to recording snapshots of the repository at a given time. Committed snapshots will never change unless done explicitly
+
 git commit -m "added test.txt" ---- giving description or message to our latest commit(Here, commit corresponds to saving changes to your local repo)
 
 ----( we can above 2 statements this way: git commit -a -m "modified file test.txt twice")
+
+------------------>set central repository as origin:
+
+set your central repository as origin using the command:
+
+----->git remote add origin "https://github.com/SudhaDupa/Sudha.git"
 
 git push ----- To push the commits to central repository server
 

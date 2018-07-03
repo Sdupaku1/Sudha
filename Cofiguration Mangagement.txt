@@ -1,0 +1,20 @@
+----->Def: 
+
+It is a system engineering process for establishing and maintaining consistency of products performance, functional and physical attributes with its requirements, design and operational information through out its life.
+
+In our context: Maintaining consistency of our software configuration.Tools that help us in achieving this is Ansible, saltstack, puppet, Chef.
+
+Provisioning:
+
+Provisioning is launching your server with an operating system to make it ready to run your application. More steps might be involved, which are covered by automation and configuration management
+
+-------->It means creating the machines with OS and software.
+
+--------->Deployment:
+
+Installinng and configuring your software product on provisioned machine.
+
+
+
+
+

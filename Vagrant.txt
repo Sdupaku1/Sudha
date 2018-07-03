@@ -1,0 +1,5 @@
+Vagrant can create and configure virtual development environment. It create identical development environments for developers and operations
+
+we need to have a vagrant box to use it. To search it, vagrantup.com/boxes.
+
+

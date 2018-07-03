@@ -1,0 +1,57 @@
+Ansible:
+
+It is used for Configuration Mangement,(is a software engineering discipline consisting of standard processes and techniques often used by organizations to manage the changes introduced to its software products or code)
+               
+               Application Deployment
+
+               Service Orchestration
+
+How Ansible Works:
+
+Relation ship between main pieces of Ansible:
+
+---->Admin client establishes connection with Ansible via ssh,
+
+---->Later, Ansible server gather facts from client like, OS and services running on it. Then, it starts running playbook on the client.
+      
+     (Play book can be used to assign roles, run tasks(deleting files), use modules, substitute variables)
+
+
+---->Playbooks:
+
+--->They define your deployment steps and configuration
+
+--->They are modular, can contain variables and can be used to orchestrate steps across multiple machines.
+
+--->ansible PlayBook are config files written in YAML(Yet ANother MarkUp Language)
+
+--->Those are going to invoke Ansible modules in things called tasks
+
+
+---->Sample Playbook that sets up a webserver:
+
+----
+hosts:webservers
+
+vars:
+
+  http_port = 80
+  remote_user = root
+
+tasks:
+ -name: update apache
+  yum: pkg=httpd state=latest
+
+ -name: configure apache
+  template: src=/srv/httpd.j2 dest=/etc/httpd.conf
+
+  notify:
+  
+  - restart apache
+  -name: always run apache
+   service: name=httpd state=started enabled=yes
+
+ 
+
+
+

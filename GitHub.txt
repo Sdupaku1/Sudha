@@ -1,0 +1,193 @@
+DevOps is an approach to bridge the gap between software development and operations.
+
+--->It’s a culture that you can adopt for continuous improvement. It will help you to bring your Developer Team and Operations Team on the same page, allowing them to work together with ease.
+
+---->Devops aims to deliver software and services quicker.
+
+---->DevOps can only work when SDLC can support it.Aim of DevOps is Complete the full SDLC as quickly as possible.
+
+----->DevOps is more than just tools.Its a practice of Dev and Ops engineers participating together in the entire SDLC.
+
+----->Tools that can help to achieve this quickly are:
+
+   Cloud COmputing(Aws, google cloud, azure): Adopting cloud accelerates the DevOps as well
+
+   Infra as Code(Chef, Puppet, Ansible, Salt STack)
+
+   Build and Test using Continuous Integration( Jenkins)
+
+   Containerization(Docker)
+
+------> Version Control:
+
+Version Control, aka revision control or source control is the managemnt of changes to documents, computer programs, large web sites and other collections of information.
+
+
+---->GIT is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
+
+---->If you need to clone your respository to local desktop, need to use git clone command
+
+----->git clone https-site:
+
+---> C:\Users\dupakunt>git clone https://github.com/SudhaDupa/demo-sudha.git
+Cloning into 'demo-sudha'...
+remote: Counting objects: 3, done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+
+---------->git init.
+
+git init creates an empty Git repository or re-initializes an existing one. It basically creates a .git directory with sub directories and template files.
+
+$ git init
+Initialized empty Git repository in C:/Users/dupakunt/Desktop/DevOps Related/.git/
+
+-------->git status
+
+The git status command lists all the modified files which are ready to be added to the local repository.
+
+
+------>create one more file and add to our clone repository:
+
+--------->git index/staging Area:
+
+The index is a single, large, binary file in <baseOfRepo>/.git/index, which lists all files in the current branch, their sha1 checksums, time stamps and the file name
+
+-------->Tracking New Files
+In order to begin tracking a new file, you use the command git add. To begin tracking the README file, you can run this:
+
+----------->$ git add README  (After making changes to the working tree, and before running the commit command, you must use the add command to add any new or modified files to the index) 
+
+----------->git add -A (This command will add all the files to the index which are in the directory but not updated in the index yet)
+
+---->Each file in your working directory can be in one of two states: tracked or untracked. Tracked files are files that were in the last snapshot; In short, tracked files are files that Git knows about.
+
+Untracked files are everything else?—?any files in your working directory that were not in your last snapshot and are not in your staging area.
+
+echo 'test123' > test.txt  ----> entered the text and created file
+
+git add test.txt ----- > add this file to git
+
+git commit -m "added test.txt" ---- giving description or message to our latest commit(Here, commit corresponds to saving changes to your local repo)
+
+----( we can above 2 statements this way: git commit -a -m "modified file test.txt twice")
+
+git push ----- To push the commits to central repository server
+
+--------------> branching in GIt:
+
+Branch represents exactly a context in a project and helps you keep it separate from all other contexts.
+
+Ex: Bugfixing, feature developing, add a hotfix
+
+----------->A local branch is a branch that only you (the local user) can see. It exists only on your local machine.
+
+------------>To create a branch:
+
+git branch branchname
+
+-------->To switch to newbranch:
+
+git checkout branchname
+
+-------->To notice which branch you are in
+
+------------>git branch
+
+C:\Users\dupakunt\demo-sudha>git branch
+* branch1
+  master
+
+-------------->pushing your commits to remote repository from a branch
+
+---->Use git push to push commits made on your local branch to a remote repository.
+
+The git push command takes two arguments:
+
+A remote name, for example, origin
+A branch name, for example, master
+For example:
+
+git push  <REMOTENAME> <BRANCHNAME> 
+As an example, you usually run git push origin master to push your local changes to your online repository.
+
+
+C:\Users\dupakunt\demo-sudha>git push origin branch1
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 347 bytes | 173.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/SudhaDupa/demo-sudha.git
+ * [new branch]      branch1 -> branch1
+
+C:\Users\dupakunt\demo-sudha>
+
+--------------> to merge other branch with origin/master branch
+
+checkout to the master branch
+
+git merge branchname
+
+C:\Users\dupakunt\demo-sudha>git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+
+C:\Users\dupakunt\demo-sudha>git branch
+  branch1
+* master
+
+C:\Users\dupakunt\demo-sudha>git merge branch1
+Updating 8688a6c..3531d64
+Fast-forward
+ feature.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature.txt
+
+C:\Users\dupakunt\demo-sudha>git push  ---->pushing commits to central repo
+fatal: TaskCanceledException encountered.
+   A task was canceled.
+Username for 'https://github.com': sudhasdn.453@gmail.com
+Password for 'https://sudhasdn.453@gmail.com@github.com':
+Total 0 (delta 0), reused 0 (delta 0)
+To https://github.com/SudhaDupa/demo-sudha.git
+   8688a6c..3531d64  master -> master
+
+--------------------> To rename a branch
+
+git push <origin/reponame> <branch>:<newbranch>
+
+C:\Users\dupakunt\demo-sudha>git push origin branch1:firstbranch
+Total 0 (delta 0), reused 0 (delta 0)
+To https://github.com/SudhaDupa/demo-sudha.git
+ * [new branch]      branch1 -> firstbranch
+
+
+------------------>To delete a remote branch:(A remote branch is a branch on a remote location (in most cases origin). You can push the newly created local branch myNewBranch to origin. Now other users can track it.)
+
+C:\Users\dupakunt\demo-sudha>git push -d origin branch1
+fatal: TaskCanceledException encountered.
+   A task was canceled.
+Username for 'https://github.com': sudhasdn.453@gmail.com
+Password for 'https://sudhasdn.453@gmail.com@github.com':
+To https://github.com/SudhaDupa/demo-sudha.git
+ - [deleted]         branch1
+
+---------------->Deleting local branches in Git
+
+git branch -d feature
+
+
+-------------------------->you cannot delete a branch by being in that branch
+
+
+
+
+
+
+
+
+
+
+
+

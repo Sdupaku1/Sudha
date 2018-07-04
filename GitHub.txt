@@ -66,7 +66,7 @@ Untracked files are everything else?—?any files in your working directory that w
 
 echo 'test123' > test.txt  ----> entered the text and created file
 
-git add test.txt ----- > add this file to git
+git add test.txt ----- > add this file to index in git
 
 ----------------->git commit( Basically Commit means saving files to local rep)
 
@@ -83,11 +83,44 @@ set your central repository as origin using the command:
 
 ----->git remote add origin "https://github.com/SudhaDupa/Sudha.git"
 
+Now that my origin is set, let us extract files from the origin using pull. For that use the command:
+
+-------->git pull origin master
+
+This command will copy all the files from the master branch of remote/origin repository to your local repository.
+
+---------->Pushing to a remote
+
 git push ----- To push the commits to central repository server
+
+Use git push to push commits made on your local branch to a remote repository.
+
+The git push command takes two arguments:
+
+A remote name, for example, origin
+A branch name, for example, master
+
+Example: git push  <REMOTENAME> <BRANCHNAME>
+
+---->As an example, you usually run git push origin master to push your local changes to your online repository.
+
+$ git push -u origin master   <-u for upstream> making changes to remote rep
+
+Counting objects: 10, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (10/10), 6.25 KiB | 1.25 MiB/s, done.
+Total 10 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3), done.
+To https://github.com/SudhaDupa/Sudha.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
 
 --------------> branching in GIt:
 
-Branch represents exactly a context in a project and helps you keep it separate from all other contexts.
+Branch represents exactly a context in a project and helps you keep it separate from all other contexts.Branches in Git are nothing but pointers to a specific commit. 
+
+Git generally prefers to keep its branches as lightweight as possible.
 
 Ex: Bugfixing, feature developing, add a hotfix
 
@@ -100,6 +133,9 @@ git branch branchname
 -------->To switch to newbranch:
 
 git checkout branchname
+------------------------>git checkout -b[ branch_name]
+
+This command will create a new branch and checkout the new branch at the same time.
 
 -------->To notice which branch you are in
 
@@ -133,6 +169,10 @@ To https://github.com/SudhaDupa/demo-sudha.git
  * [new branch]      branch1 -> branch1
 
 C:\Users\dupakunt\demo-sudha>
+
+---------------->Merging
+
+Merging is the way to combine the work of different branches together. This will allow us to branch off, develop a new feature, and then combine it back in.
 
 --------------> to merge other branch with origin/master branch
 

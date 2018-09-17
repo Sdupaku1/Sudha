@@ -1,0 +1,35 @@
+Authorization
+----
+Select BasicAuth -- Leave the fields empty
+
+Headers
+--
+Select Content-Type -- application/soap+xml
+
+POST URL
+-------
+https://138.35.13.121:8443/esl/services/ESLWebservice
+
+or
+
+https://esl-prd-v.svcs.entsvcs.net:8443/esl/services/ESLWebservice
+
+Body -- raw
+--------
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <SOAP-ENV:Header>
+        <m:Username xmlns:m="http://www.hp.com">api_esl_oo_ahold</m:Username>
+        <m:Password xmlns:m="http://www.hp.com">F55Y2e547S</m:Password>
+    </SOAP-ENV:Header>
+    <SOAP-ENV:Body>
+        <m:GetCI xmlns:m="http://www.hp.com">
+            <CIType xsi:type="xsd:string">System</CIType>
+            <CIName xsi:type="xsd:string">ahdmsvwpapp0091.ahold.nl</CIName>
+            <CIID xsi:type="xsd:string"></CIID>
+            <AttrFilter xsi:type="xsd:string"></AttrFilter>
+            <SubObjFilter xsi:type="xsd:string"></SubObjFilter>
+        </m:GetCI>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+

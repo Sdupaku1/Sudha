@@ -1,0 +1,8 @@
+---->Postman is an API client.
+
+---->we can develop, test, document and share API's
+
+---->Group of API requests is called COLLECTION.
+
+
+

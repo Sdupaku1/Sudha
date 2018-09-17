@@ -1,0 +1,21 @@
+--------->What Is Kubernetes?
+Kubernetes is an open-source container management (orchestration) tool. It’s container management responsibilities include container deployment, scaling & descaling of containers & container load balancing.
+
+
+-------->Working of Kubernetes:
+
+Master controls the cluster and the nodes in it
+
+Nodes:They have the containers insdie them.Containers are inside PODS
+
+POD: Logical grouping of containers needed to interact with each other for an Application:
+
+Replication controller: Master's resource to ensure that requested no.of pods are running on nodes as always.
+
+Service: Its an object on master that provides load balancing across replicated group of PODs.
+
+
+-------->Features Of Kubernetes
+This is the right time to talk about Kubernetes’ features because, you already know what it does and how it compares against Docker Swarm.
+
+

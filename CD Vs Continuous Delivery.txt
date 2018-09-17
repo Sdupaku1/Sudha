@@ -1,0 +1,18 @@
+Continuous Delivery does not involve deployment to production on every change that occurs. You just need to ensure that the code is always in a deployable state, so you can deploy it easily whenever you want.
+
+On the other hand, Continuous Deployment requires every change to be deployed automatically, without human intervention.
+
+So, as you can see in the diagram once Continuous Integration stages are completed, the newly built application is automatically deployed to production then it is Continuous Deployment. 
+
+On the other hand, if we manage to automate everything, but decide to require a human approval in order to proceed with the deployment of the new version, then we are taking into account Continuous Delivery.  
+
+Well, the difference is very much subtle, but it has enormous implications, making each technique appropriate for various situations.
+
+
+Continuous Deployment:(with out human intervention)
+
+Deploying the built application onto production servers for release in an automated fashion.
+
+
+
+

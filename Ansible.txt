@@ -6,6 +6,10 @@ It is used for Configuration Mangement,(is a software engineering discipline con
 
                Service Orchestration
 
+------>Orchestration:
+
+Orchestration is about bringing together different things into a coherent(logical) whole, meaning Anisble acts as an orchestartion tool which ensures all tasks happen in proper order.
+
 How Ansible Works:
 
 Relation ship between main pieces of Ansible:

@@ -77,6 +77,8 @@ git commit -m "added test.txt" ---- giving description or message to our latest 
 
 ----( we can above 2 statements this way: git commit -a -m "modified file test.txt twice")
 
+---->If we have multiple changes to be committed, then also we can use git commit -a -m "message"
+
 ------------------>set central repository as origin:
 
 set your central repository as origin using the command:

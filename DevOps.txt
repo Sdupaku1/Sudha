@@ -1,5 +1,9 @@
 ---->What is DevOps?
 
+DevOps integrates developers and operations team to improve collaboration and productivity.
+
+According to the DevOps culture, a single group of Engineers (developers, system admins, QA’s. Testers etc turned into DevOps Engineers) has end to end responsibility of the Application (Software) right from gathering the requirement to development, to testing, to infrastructure deployment, to application deployment and finally monitoring & gathering feedback from the end users, then again implementing the changes.
+
 DevOps is a software development approach which involves Continuous Development, Continuous Testing, Continuous Integration, Continuous Deployment and Continuous Monitoring of the software throughout its development life cycle.
 
 

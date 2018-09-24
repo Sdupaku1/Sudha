@@ -1,5 +1,8 @@
 Ansible:
 
+Ansible is an automation tool for provisioning, application deployment, and configuration management.Ansible is completely agent-less, meaning you don’t have to install any software on your managed hosts.
+
+
 It is used for Configuration Mangement,(is a software engineering discipline consisting of standard processes and techniques often used by organizations to manage the changes introduced to its software products or code)
                
                Application Deployment
@@ -9,6 +12,14 @@ It is used for Configuration Mangement,(is a software engineering discipline con
 ------>Orchestration:
 
 Orchestration is about bringing together different things into a coherent(logical) whole, meaning Anisble acts as an orchestartion tool which ensures all tasks happen in proper order.
+
+
+Modules:
+
+Modules are small plugins that are executed on the host and allow you to interact with the remote system, as if you were logged in via SSH. Common modules include: apt, service, file and lineinfile, but Ansible ships with hundreds of core modules, all of which are maintained by the core development team. 
+
+Modules greatly simplify the process of running commands on your remote systems, and cut down the need to manually write shell or bash scripts
+
 
 How Ansible Works:
 
@@ -55,7 +66,7 @@ tasks:
   -name: always run apache
    service: name=httpd state=started enabled=yes
 
-Ansible
+
 
  
 

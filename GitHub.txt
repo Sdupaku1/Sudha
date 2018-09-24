@@ -22,8 +22,14 @@ DevOps is an approach to bridge the gap between software development and operati
 
 Version Control, aka revision control or source control is the managemnt of changes to documents, computer programs, large web sites and other collections of information.
 
+It is a system that records changes to a file or set of files over time so that you can recall specific versions later.It consist of a central shared repository where teammates can commit changes to a file or set of file.
+
 
 ---->GIT is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
+
+Git has major advantage over other VCS tools like SVN that it is a distributed version control system.”
+
+Distributed VCS tools do not necessarily rely on a central server to store all the versions of a project’s files. Instead, every developer “clones” a copy of a repository and has the full history of the project on their own hard drive
 
 ---->If you need to clone your respository to local desktop, need to use git clone command
 
@@ -35,30 +41,14 @@ remote: Counting objects: 3, done.
 remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
 Unpacking objects: 100% (3/3), done.
 
----------->git init.
-
-git init creates an empty Git repository or re-initializes an existing one. It basically creates a .git directory with sub directories and template files.
-
-$ git init
-Initialized empty Git repository in C:/Users/dupakunt/Desktop/DevOps Related/.git/
-
--------->git status
-
-The git status command lists all the modified files which are ready to be added to the local repository.
-
-
 ------>create one more file and add to our clone repository:
-
---------->git index/staging Area:
-
-The index is a single, large, binary file in <baseOfRepo>/.git/index, which lists all files in the current branch, their sha1 checksums, time stamps and the file name
 
 -------->Tracking New Files
 In order to begin tracking a new file, you use the command git add. To begin tracking the README file, you can run this:
 
------------>$ git add README  (After making changes to the working tree, and before running the commit command, you must use the add command to add any new or modified files to the index) 
+$ git add README
 
------------>git add -A (This command will add all the files to the index which are in the directory but not updated in the index yet)
+git add . adds all modified and new (untracked) files in the current directory and all subdirectories to the staging area (a.k.a. the index), thus preparing them to be included in the next git commit
 
 ---->Each file in your working directory can be in one of two states: tracked or untracked. Tracked files are files that were in the last snapshot; In short, tracked files are files that Git knows about.
 
@@ -66,63 +56,45 @@ Untracked files are everything else?—?any files in your working directory that w
 
 echo 'test123' > test.txt  ----> entered the text and created file
 
-git add test.txt ----- > add this file to index in git
+---------->Index
 
------------------>git commit( Basically Commit means saving files to local rep)
+Index holds a snapshot of the content of the working tree/directory, and this snapshot is taken as the contents for the next change to be made in the local repository.
 
-
-It refers to recording snapshots of the repository at a given time. Committed snapshots will never change unless done explicitly
+git add test.txt ----- > add this file to git(This command updates the index using the current content found in the working tree and then prepares the content in the staging area for the next commit.)
 
 git commit -m "added test.txt" ---- giving description or message to our latest commit(Here, commit corresponds to saving changes to your local repo)
 
 ----( we can above 2 statements this way: git commit -a -m "modified file test.txt twice")
 
----->If we have multiple changes to be committed, then also we can use git commit -a -m "message"
+------->Note that before you affect changes to the central repository you should always pull changes from the central repository to your local repository to get updated with the work of all the collaborators that have been contributing in the central repository. 
+For that we will use the pull command.
 
------------------->set central repository as origin:
+-------->Pull
+The git pull command fetches changes from a remote repository to a local repository. It merges upstream changes in your local repository, which is a common task in Git based collaborations.
 
-set your central repository as origin using the command:
+------>Setting Origin
 
------>git remote add origin "https://github.com/SudhaDupa/Sudha.git"
+But first, you need to set your central repository as origin using the command:
+
+git remote add origin <link of your central repository>
 
 Now that my origin is set, let us extract files from the origin using pull. For that use the command:
 
--------->git pull origin master
+---->git pull origin master
 
-This command will copy all the files from the master branch of remote/origin repository to your local repository.
+This command will copy all the files from the master branch of remote repository to your local repository.
 
----------->Pushing to a remote
+Note: One can also try pulling files from a different branch using the following command:
+
+git pull origin <branch-name>
+
+Your local Git repository is now updated with all the recent changes. It is time you make changes in the central repository by using the push command.
 
 git push ----- To push the commits to central repository server
 
-Use git push to push commits made on your local branch to a remote repository.
-
-The git push command takes two arguments:
-
-A remote name, for example, origin
-A branch name, for example, master
-
-Example: git push  <REMOTENAME> <BRANCHNAME>
-
----->As an example, you usually run git push origin master to push your local changes to your online repository.
-
-$ git push -u origin master   <-u for upstream> making changes to remote rep
-
-Counting objects: 10, done.
-Delta compression using up to 4 threads.
-Compressing objects: 100% (10/10), done.
-Writing objects: 100% (10/10), 6.25 KiB | 1.25 MiB/s, done.
-Total 10 (delta 3), reused 0 (delta 0)
-remote: Resolving deltas: 100% (3/3), done.
-To https://github.com/SudhaDupa/Sudha.git
- * [new branch]      master -> master
-Branch 'master' set up to track remote branch 'master' from 'origin'.
-
 --------------> branching in GIt:
 
-Branch represents exactly a context in a project and helps you keep it separate from all other contexts.Branches in Git are nothing but pointers to a specific commit. 
-
-Git generally prefers to keep its branches as lightweight as possible.
+Branch represents exactly a context in a project and helps you keep it separate from all other contexts.
 
 Ex: Bugfixing, feature developing, add a hotfix
 
@@ -135,9 +107,6 @@ git branch branchname
 -------->To switch to newbranch:
 
 git checkout branchname
------------------------->git checkout -b[ branch_name]
-
-This command will create a new branch and checkout the new branch at the same time.
 
 -------->To notice which branch you are in
 
@@ -172,9 +141,14 @@ To https://github.com/SudhaDupa/demo-sudha.git
 
 C:\Users\dupakunt\demo-sudha>
 
----------------->Merging
+---------->git checkout -b[ branch_name]
+
+This command will create a new branch and checkout the new branch at the same time.
+
+-------->Merging
 
 Merging is the way to combine the work of different branches together. This will allow us to branch off, develop a new feature, and then combine it back in.
+
 
 --------------> to merge other branch with origin/master branch
 
@@ -234,8 +208,24 @@ git branch -d feature
 -------------------------->you cannot delete a branch by being in that branch
 
 
+One of the most useful features of any version control system is the ability to “undo” your mistakes. In Git, “undo” can mean many slightly different things.
 
 
+----->Undo a “public” change
+Scenario: You just ran git push, sending your changes to GitHub, now you realize there’s a problem with one of those commits. You’d like to undo that commit.
+
+Undo with: git revert <SHA>
+
+What’s happening: git revert will create a new commit that’s the opposite (or inverse) of the given SHA. If the old commit is “matter”, the new commit is “anti-matter”—anything removed in the old commit will be added in the new commit and anything added in the old commit will be removed in the new commit.
+
+This is Git’s safest, most basic “undo” scenario, because it doesn’t alter history—so you can now git push the new “inverse” commit to undo your mistaken commit
+
+------>Fix the last commit message
+Scenario: You just typo’d the last commit message, you did git commit -m "Fxies bug #42" but before git push you realized that really should say “Fixes bug #42”.
+
+Undo with: git commit --amend or git commit --amend -m "Fixes bug #42"
+
+What’s happening: git commit --amend will update and replace the most recent commit with a new commit that combines any staged changes with the contents of the previous commit. With nothing currently staged, this just rewrites the previous commit message
 
 
 

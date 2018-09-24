@@ -1,0 +1,123 @@
+----->EC2:
+
+(It is a web service whic is used to spin up virtual servers to host applications on AWS cloud infrastructure)
+
+Amazon Elastic Compute Cloud (Amazon EC2) is a web-based service that allows businesses to run application programs in the Amazon Web Services (AWS) public cloud. 
+Amazon EC2 allows a developer to spin up virtual machines (VM), which provide compute capacity.
+An AWS user can increase or decrease instance capacity as needed within minutes using the Amazon EC2 web interface . 
+A developer can code an application to scale instances automatically with AWS Auto Scaling. 
+
+------>Amazon EBS:
+
+Amazon Elastic Block Store is a cloud-based block storage system provided by Amazon Web Services (AWS) that is best used for storing persistent data.
+
+It provides highly available block-level storage volumes for use with Amazon Elastic Compute Cloud (EC2) instances. It enables you to keep data persistently on a file system, even after you shut down your EC2 instance.
+
+customer can choose between volumes backed by either a solid-state drive (SSD) or a hard disk drive (HDD).
+
+--------->Amazon s3
+
+Amazon S3 is an object storage service in AWS.Before you can upload data to Amazon S3, you must create a bucket in one of the AWS Regions to store your data in. Each object is stored as a file with its metadata included and given an ID number. 
+
+Applications use this ID number to access an object.Developer can access an object via a rest API. S3 enables a customer to upload, store and download practically any file or object that is up to five gigabytes (5 GB) in size.
+
+An AWS customer uses an Amazon S3 API to upload objects to a particular bucket.
+
+------------>Amazon RDS
+
+A relational database is a collection of data items with pre-defined relationships between them. These items are organized as a set of tables with columns and rows. 
+
+A database engine (or storage engine) is the underlying software component that a database management system (DBMS) uses to create, read, update and delete (CRUD) data from a database.
+
+Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up, operate, and scale a relational database in the cloud. It also manages common database administration tasks like taking backups, archives, applying patches etc.
+
+----------->Amazon VPC
+
+Amazon Virtual Private Cloud (Amazon VPC) enables you to launch AWS resources into a virtual network that you've defined. This virtual network closely resembles a traditional network that you'd operate in your own data center, with the benefits of using the scalable infrastructure of AWS.
+
+A virtual private cloud (VPC) is a virtual network dedicated to your AWS account. It is logically isolated from other virtual networks in the AWS Cloud. You can launch your AWS resources, such as Amazon EC2 instances, into your VPC. 
+
+You can specify an IP address range for the VPC, add subnets, associate security groups, and configure route tables
+
+---------->AWS Elastic Beanstalk
+
+With Elastic Beanstalk, you can quickly deploy and manage applications in the AWS Cloud without worrying about the infrastructure that runs those applications. AWS Elastic Beanstalk reduces management complexity without restricting choice or control. 
+
+You simply upload your application, and Elastic Beanstalk automatically handles the details of capacity provisioning, load balancing, scaling, and application health monitoring.
+
+Elastic Beanstalk automatically launches an environment and creates and configures the AWS resources needed to run your code. 
+
+After your environment is launched, you can then manage your environment and deploy new application versions.
+
+------->Amazon CloudWatch
+
+Amazon CloudWatch monitors your AWS resources and the applications you run on AWS in real time. CloudWatch is used to collect and track metrics, which are variables you can measure for your resources and applications. 
+
+CloudWatch alarms send notifications or automatically make changes to the resources you are monitoring based on rules that you define.
+
+The following services are used along with Amazon CloudWatch:
+
+--->Amazon Simple Notification Service (Amazon SNS) : coordinates and manages the delivery or sending of messages to subscribing endpoints or clients. You use Amazon SNS with CloudWatch to send messages when an alarm threshold has been reached.
+
+---->Amazon EC2 Auto Scaling enables you to automatically launch or terminate Amazon EC2 instances based on user-defined policies, health status checks, and schedules. You can use a CloudWatch alarm with Amazon EC2 Auto Scaling to scale your EC2 instances based on demand
+
+---->AWS Identity and Access Management (IAM) is a web service that helps you securely control access to AWS resources for your users. Use IAM to control who can use your AWS resources (authentication) and what resources they can use in which ways (authorization)
+
+---->AWS CloudTrail enables you to monitor the calls made to the Amazon CloudWatch API for your account, including calls made by the AWS Management Console, AWS CLI, and other services. When CloudTrail logging is turned on, CloudWatch writes log files to the Amazon S3 bucket that you specified when you configured CloudTrail.
+
+-------->Amazon SQS:(intercomponent communication in aws)
+
+AWs SQS(Simple Queue Service) services is used to send messages to the underlying AWS components.Amazon SQS provides interprocess and intercomponent communication for services in the AWS suite, including Amazon Simple Storage Service (Amazon S3) and Amazon Elastic Compute Cloud (Amazon EC2). 
+
+Amazon SQS supports both standard and FIFO queues. Amazon SQS is primarily implemented in scenarios where a complete application or workflow process is distributed across different remote servers and requires a specialized messaging system for the communication and completion of user generated requests.
+
+--------->Route 53(DNS translates domain names to IP addresses)
+
+Amazon Route 53 is a scalable domain name system (DNS) service intended to give business and developers a reliable way to direct end users to applications. This is accomplished by translating domain names (www.websitename.com) into the numeric IP addresses (123.12.3)
+
+You can use Route 53 to perform three main functions:
+
+---->Register domain names:
+
+Your website needs a name, such as example.com. Route 53 lets you register a name for your website or web application, known as a domain name.
+
+---->Route internet traffic to the resources for your domain
+
+When a user opens a web browser and enters your domain name (example.com) or subdomain name (apex.example.com) in the address bar, Route 53 helps connect the browser with your website
+
+----->Check the health of your resources
+
+Route 53 sends automated requests over the internet to a resource, such as a web server, to verify that it's reachable, available, and functional.  
+
+--->AWS Identity and Access Management (IAM):
+
+AWS Identity and Access Management (IAM) enables you to manage access to AWS services and resources securely. Using IAM, you can create and manage AWS users and groups, and use permissions to allow and deny their access to AWS resources.
+
+---->Amazon Lightsail
+
+Amazon Lightsail is the easiest way to get started with AWS for developers who just need virtual private servers. Lightsail includes everything you need to launch your project quickly.
+A virtual machine, SSD-based storage, data transfer, DNS management, and a static IP – for a low, predictable price.
+
+----->CloudFront
+
+Amazon CloudFront is a content delivery network (CDN) offered by Amazon Web Services. Content delivery networks provide a globally-distributed network of proxy servers which cache content, 
+
+such as web videos or other bulky media, more locally to consumers, thus improving access speed for downloading the content.
+
+----->AWS Lambda:
+
+AWS Lambda is a compute service that lets you run code without provisioning servers. AWS Lambda executes your code only when needed and scales automatically.
+
+You pay only for the compute time you consume - there is no charge when your code is not running. With AWS Lambda, you can run code for virtually any type of application or backend service - all with zero administration. 
+
+You can use AWS Lambda to run your code in response to events, such as changes to data in an Amazon S3 bucket or an Amazon DynamoDB table.
+
+AWS Lambda is an ideal compute platform for many application scenarios, provided that you can write your application code in languages supported by AWS Lambda (that is, Node.js, Java, Go and C# and Python), and run within the AWS Lambda standard runtime environment.
+
+
+
+
+
+
+
+

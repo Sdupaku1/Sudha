@@ -1,0 +1,128 @@
+Source:https://www.edureka.co/blog/what-is-jenkins/
+
+
+------------>Continuous Integration Def:
+
+Its a development Practice in which the developers are required to change commiits to the source code in shared repository many times a day.Every commit made to the repo is then built.This way
+
+allows to detect problems easily.
+
+CI tools: Jenkins, Bamboo, BuildBot, Travis CI.
+
+
+------->Jenkins is a open source automation tool used for Continuous Integration.It is written in Java with plugins for different CI stages like, Build, test, Deployment etc.
+
+-------->Process before COntinuous integration:
+
+Group of Developers will make changes in the source code present in source code repo like GIT or SVN. once the code is completed, it will be built usig tools like Ant and Maven.
+
+After that, the built application is deployed onto test servers for testing.If there are any bugs, in the code, developers are notified through feed back loops.
+
+If there are no bugs, application will be released onto production servers.
+
+
+------->Problems for developers Faced with this process:
+
+Developers have to wait for long time to get the feed back for developed applications.
+
+They need to go through the entire source code of software to fix the bugs
+
+-------->Continuous Integration to rescue:
+
+In CI, every commit made to source code repo will be used to build, test and deploy the application, if there is any bug found in the testing in this process, developer will notice the commit that caused this bug.
+
+This way, bug fixing has become lot more easier.And the frequency of software releases has become much more easier.
+
+
+
+------------------>Installing Jenkins in Windows:
+
+
+----->to download jenkins war file, got to http://jenkins.io/
+
+----->Select windows in LTS section
+
+----->after download, open cmd and go to war file location and then type java -jar jenkins.war --httpPort=8080
+
+----->AFter that http://localhost:8080
+
+------->enter admin password and install default plugins
+
+-------------------->Create a Jenkins shell script job
+
+Jenkins can run any shell script and report on the success or failure depending on whether the script exits with 0, for success, or non-zero, for failure.
+
+----->On the Jenkins front page, click New Item.
+
+------>Enter a name in the Item name field e.g. Shell job. Note that Jenkins uses the terms "project" and "job" interchangeably.
+
+------->Select Freestyle project and click OK
+
+------>On the configuration page, under the Advanced Project Options heading, click Advanced...
+
+------->Select Use custom workspace.
+
+------->Enter the directory with your shell script e.g. $HOME/build_and_test_examples/sh.(C:\Users\dupakunt\Desktop)
+
+------->Scroll down the page to under the Build heading.
+
+-------->Click Add build step and select Execute shell.
+Enter:
+bash -x test.bash
+
+-----> save the configuration and selct Build Now
+
+
+
+Interview qsns:
+
+Q1. What is Jenkins?
+My suggestion is to start this answer by giving a definition of Jenkins.
+
+Jenkins is an open source automation tool written in Java with plugins built for Continuous Integration purpose. 
+Jenkins is used to build and test your software projects continuously making it easier for developers to integrate changes to the project, and making it easier for users to obtain a fresh build.
+
+First, a developer commits the code to the source code repository. Meanwhile, the Jenkins server checks the repository at regular intervals for changes.
+Soon after a commit occurs, the Jenkins server detects the changes that have occurred in the source code repository. Jenkins will pull those changes and will start preparing a new build.
+If the build fails, then the concerned team will be notified.
+If built is successful, then Jenkins deploys the built in the test server.
+After testing, Jenkins generates a feedback and then notifies the developers about the build and test results.
+It will continue to check the  source code repository for changes made in the source code and the whole process keeps on repeating.
+
+
+------>What are the benefits of using Jenkins?
+
+A build will be created automically by pulling changes from source code repoistory.
+
+we can do some post build actions like Junit testing, sending e-mail notification of job status from POst build actions tab from configuration page
+
+Integration of Jenkins with mail server to notify developers about build and test results
+
+Build failures are cached.
+
+Identification of bugs at early stage in development rather than in production.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

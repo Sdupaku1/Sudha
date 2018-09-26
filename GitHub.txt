@@ -1,3 +1,12 @@
+GIT terminology:
+
+---->HEAD: the current commit your repo is on. Most of the time HEAD points to the latest commit in your current branch, but that doesn't have to be the case. HEAD really just means "what is my repo currently pointing at".
+
+----->master: the name of the default branch that git creates for you when first creating a repo. In most cases, "master" means "the main branch.
+
+----->origin: the default name that git gives to your main remote repo. 
+
+
 DevOps is an approach to bridge the gap between software development and operations.
 
 --->It’s a culture that you can adopt for continuous improvement. It will help you to bring your Developer Team and Operations Team on the same page, allowing them to work together with ease.
@@ -100,6 +109,8 @@ Ex: Bugfixing, feature developing, add a hotfix
 
 ----------->A local branch is a branch that only you (the local user) can see. It exists only on your local machine.
 
+----->A checkout is an operation that moves the HEAD ref pointer to a specified commit.
+
 ------------>To create a branch:
 
 git branch branchname
@@ -140,6 +151,16 @@ To https://github.com/SudhaDupa/demo-sudha.git
  * [new branch]      branch1 -> branch1
 
 C:\Users\dupakunt\demo-sudha>
+
+checkout: The git checkout command is used to update the state of the repository to a specific point in the projects history. When passed with a branch name, it lets you switch between branches.
+
+Internally, the above command does is move HEAD to a different branch and update the working directory to match.
+
+You can also check out arbitrary commits by passing the commit reference instead of a branch.
+
+---->git checkout HEAD~2
+
+Above command will check out the grandparent of the current commit
 
 ---------->git checkout -b[ branch_name]
 
@@ -211,6 +232,10 @@ git branch -d feature
 One of the most useful features of any version control system is the ability to “undo” your mistakes. In Git, “undo” can mean many slightly different things.
 
 
+
+------->A revert is an operation that takes a specified commit and creates a new commit which inverses the specified commit. 
+
+
 ----->Undo a “public” change
 Scenario: You just ran git push, sending your changes to GitHub, now you realize there’s a problem with one of those commits. You’d like to undo that commit.
 
@@ -226,6 +251,54 @@ Scenario: You just typo’d the last commit message, you did git commit -m "Fxies 
 Undo with: git commit --amend or git commit --amend -m "Fixes bug #42"
 
 What’s happening: git commit --amend will update and replace the most recent commit with a new commit that combines any staged changes with the contents of the previous commit. With nothing currently staged, this just rewrites the previous commit message
+
+
+--------->To view the contents of old version of a particular file:
+
+git show Revision:filename(path-to-file)
+
+For example, to view the version of file test.txt from 1 commits ago, use:
+
+$ git show HEAD~1:test.txt
+
+C:\Users\sdupakuntla\Desktop\DevOps Related>git show HEAD~1:test.txt
+Hi, am testing github. Trying to recover different versions of this file.
+
+------->To get the commit values of old commits, 
+
+By default, with no arguments, git log lists the commits made in that repository in reverse chronological order – that is, the most recent commits show up first 
+
+One of the more helpful options is -p, which shows the difference introduced in each commit.
+
+git log -p -2 will show the latest 2 commits made 
+
+
+---------->Reverting commit
+You can revert individual commits with:
+
+git revert <commit_hash>
+This will create a new commit which reverts the changes of the commit you specified. Note that it only reverts that specific commit, and not commits after that. 
+
+After that push the changes to make changes visible in the remote repo.
+
+-------->Reset commit:(https://www.atlassian.com/git/tutorials/resetting-checking-out-and-reverting)
+
+On the commit-level, resetting is a way to move the tip of a branch to a different commit. This can be used to remove commits from the current branch.
+
+Example:
+
+git checkout hotfix
+git reset HEAD~2
+
+The two commits that were on the end of hotfix are now dangling, or orphaned commits. This means they will be deleted the next time Git performs a garbage collection.
+
+you can also get 'git reset' to alter the staged snapshot and/or the working directory by passing it one of the following flags:
+
+----> --soft – The staged snapshot and working directory are not altered in any way.
+----> --hard – The staged snapshot and the working directory are both updated to match the specified commit.
+
+-------->git revert is the best tool for undoing shared public changes
+--------->git reset is best used for undoing local private changes
 
 
 

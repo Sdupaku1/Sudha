@@ -14,5 +14,12 @@ Continuous Deployment:(with out human intervention)
 Deploying the built application onto production servers for release in an automated fashion.
 
 
+Continuous Delivery (CD): CI + the entire software release process is automated, it may be composed of multiple stages, and deployment to production is manual.
+
+Continuous Deployment: CI + CD + fully automated deployment to production.
+
+
+
+
 
 

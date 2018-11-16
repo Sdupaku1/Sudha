@@ -3,9 +3,18 @@ Source:https://www.edureka.co/blog/what-is-jenkins/
 
 ------------>Continuous Integration Def:
 
-Its a development Practice in which the developers are required to change commiits to the source code in shared repository many times a day.Every commit made to the repo is then built.This way
+Continuous Integration, in DevOps is nothing but merging individual developers code into the main branch where version control is maintained.
 
-allows to detect problems easily.
+As and when the developer checks in their code to the version control, immediately the process of CI kick starts.
+
+The CI process includes,
+
+Merging of all the Developers code to the main line,
+Triggering a build,
+Compiling the code and making a build and ….lastly
+Carrying out the unit test.
+
+So, Continuous Integration is a process of merging all the developer’s code to a central location and validating each one of their merges with an automated build and test.
 
 CI tools: Jenkins, Bamboo, BuildBot, Travis CI.
 
@@ -62,15 +71,22 @@ Jenkins can run any shell script and report on the success or failure depending 
 
 ------->Select Use custom workspace.
 
-------->Enter the directory with your shell script e.g. $HOME/build_and_test_examples/sh.(C:\Users\dupakunt\Desktop)
+------->Enter the directory of your shell script e.g. $HOME/build_and_test_examples/sh.(C:\Users\sdupakuntla\Desktop)
+
+------>To execute unix commands in windows, we need to have cygwin installed and configured in Jenkins.
+       For configuring it, select ManageJenkins --->ConfgiureSystem----> and mention 'C:\cygwin\bin\sh.exe' under shell executable field.
 
 ------->Scroll down the page to under the Build heading.
 
 -------->Click Add build step and select Execute shell.
 Enter:
-bash -x test.bash
+./unixcomm.sh
 
 -----> save the configuration and selct Build Now
+
+----->If you get any error like this($'\r': command not found), while executing the command in cygiwn, run this dos2unix filename or 
+
+Remove trailing \r character that causes this error: xsed -i 's/\r$//' filename
 
 
 
@@ -94,13 +110,248 @@ It will continue to check the  source code repository for changes made in the so
 
 A build will be created automically by pulling changes from source code repoistory.
 
-we can do some post build actions like Junit testing, sending e-mail notification of job status from POst build actions tab from configuration page
+we can do some post build actions like Junit testing, sending e-mail notification of job status or deploying the build artifacts(ear or .war) files to a container from POst build actions tab.
 
 Integration of Jenkins with mail server to notify developers about build and test results
 
 Build failures are cached.
 
 Identification of bugs at early stage in development rather than in production.
+
+
+---------->Pipelines in Jenkins:
+
+
+Pipeline is workflow with group of jobs that are chained and integrated with each other sequentially.
+
+
+In Devops stages:
+
+Build ----> Deploy ----> Test----->release
+
+
+There will be jobs configured for each of the above task like SampleBuildJob, SampleTestJob, SampleDeployJob
+
+-->Configure the required jobs with necessary inputs
+
+---> Create Pipeline, meaning establishing connection across the job. Go to first job and select post-build actions, select Build Other Projects and give next job details.Keep doing it until there is no further jobs.
+
+--->Create Pipeline line view by clicking on new tab symbol then select the initial job and Apply. Finally CLick the Run
+
+
+
+
+
+------------>Declarative pipeline:In this post, we will cover all the directives available to develop your Declarative pipeline script, which will provide a clear picture of its functionality.
+
+To create a basic Pipeline through the Jenkins classic UI:
+
+If required, ensure you are logged in to Jenkins.
+
+From the Jenkins home page (i.e. the Dashboard of the Jenkins classic UI), click New Item at the top left.
+
+
+------>Declarative Pipelines Syntax
+
+A valid Declarative pipeline must be defined with the "pipeline" sentence and include the next required sections:
+
+    Agent
+    Stages
+    Stage
+    Steps
+
+Also, these are the available directives:
+
+    Environment (Defined at stage or pipeline level)
+    Input (Defined at stage level)
+    Options (Defined at stage or pipeline level)
+    Parallel
+    Parameters
+    Post
+    Script
+    Tools
+    Triggers
+    When
+
+
+---->Agent
+
+Jenkins provides the ability to perform distributed builds by delegating them to "agent" nodes.
+ 
+Doing this allows you to execute several projects with only one instance of the Jenkins server, while the workload is distributed to its agents.
+
+Agents should be labeled so they can be easily identified from each other. For example, nodes can be labeled by their platform (Linux, Windows, etc), by their versions or by their location, among others.
+
+Specifying "agent any" means that Jenkins will run the job on any of the available nodes.
+
+An example of its use could be:
+
+pipeline {
+
+agent any
+
+...
+
+}
+
+---->Stages
+
+This section allows generation of different stages on your pipeline that will be visualized as different segments when the job is run.
+
+A sample pipeline including the stages sentence is provided:
+
+pipeline {
+
+agent any
+
+stages {
+
+...
+
+}
+
+}
+
+----->Stage
+
+At least one "stage" section must be defined on the "stages" section. It will contain the work that the pipeline will execute. 
+
+Stages must be named accordingly since Jenkins will display each of them on its interface.Jenkins graphically splits pipeline execution based on the defined stages and displays their duration and whether it was successful or not.
+
+
+The pipeline script for the previous image looks like the following:
+
+pipeline {
+
+agent any
+
+stages {
+
+stage ('build') {
+
+...
+
+}
+
+stage ('test: integration-&-quality') {
+
+...
+
+}
+
+stage ('test: functional') {
+
+...
+
+}
+
+stage ('test: load-&-security') {
+
+...
+
+}
+
+stage ('approval') {
+
+...
+
+}
+
+stage ('deploy:prod') {
+
+...
+
+}
+
+}
+
+}
+
+
+---->Steps
+
+The last required section is "steps," which is defined into each "stage." At least one step must be defined in the "steps" section.
+
+For Linux and MacOS, shell is supported. Here is an example:
+
+steps {  
+
+sh 'echo "A one line step"'
+
+sh ''' 
+
+echo "A multiline step"'
+
+cd /tests/results
+
+ls -lrt
+
+'''
+
+}
+
+----->Environment
+
+This directive can be both defined at stage or pipeline level, which will determine the scope of its definitions. When "environment" is used at the "pipeline" level, its definitions will be valid for all of the pipeline steps. If instead it is defined within a "stage," it will only be valid for the particular stage.
+
+Sample uses of this directive:
+
+At the "pipeline" level:
+
+pipeline {
+
+agent any
+
+environment {
+
+OUTPUT_PATH = './outputs/'
+
+}
+
+stages {
+
+stage ('build') {
+
+...
+
+}
+
+...
+
+}
+
+}
+
+Here, "environment" is used at a "stage" level:
+
+pipeline {
+
+agent any
+
+stages {
+
+stage ('build') {
+
+environment {
+
+OUTPUT_PATH = './outputs/'
+
+}
+
+...
+
+}
+
+...
+
+}
+
+}
+
+------->
+
+
+
 
 
 

@@ -51,9 +51,9 @@ After your environment is launched, you can then manage your environment and dep
 
 ------->Amazon CloudWatch
 
-Amazon CloudWatch monitors your AWS resources and the applications you run on AWS in real time. CloudWatch is used to collect and track metrics, which are variables you can measure for your resources and applications. 
+Amazon CloudWatch monitors your AWS resources and the applications you run on AWS in real time. CloudWatch is used to collect and track metrics, which are variables you measure for your resources and applications. 
 
-CloudWatch alarms send notifications or automatically make changes to the resources you are monitoring based on rules that you define.
+CloudWatch alarms send notifications or automatically make changes to the resources based on rules that you define.
 
 The following services are used along with Amazon CloudWatch:
 
@@ -65,7 +65,7 @@ The following services are used along with Amazon CloudWatch:
 
 ---->AWS CloudTrail enables you to monitor the calls made to the Amazon CloudWatch API for your account, including calls made by the AWS Management Console, AWS CLI, and other services. When CloudTrail logging is turned on, CloudWatch writes log files to the Amazon S3 bucket that you specified when you configured CloudTrail.
 
--------->Amazon SQS:(intercomponent communication in aws)
+---------->Amazon SQS:(intercomponent communication in aws)
 
 AWs SQS(Simple Queue Service) services is used to send messages to the underlying AWS components.Amazon SQS provides interprocess and intercomponent communication for services in the AWS suite, including Amazon Simple Storage Service (Amazon S3) and Amazon Elastic Compute Cloud (Amazon EC2). 
 
@@ -113,6 +113,12 @@ You pay only for the compute time you consume - there is no charge when your cod
 You can use AWS Lambda to run your code in response to events, such as changes to data in an Amazon S3 bucket or an Amazon DynamoDB table.
 
 AWS Lambda is an ideal compute platform for many application scenarios, provided that you can write your application code in languages supported by AWS Lambda (that is, Node.js, Java, Go and C# and Python), and run within the AWS Lambda standard runtime environment.
+
+------->Difference between snapshot and AMI:
+
+AN AMI is an executable image to replicate ec2 instances again so that u dont have to do the configuration again.
+
+
 
 
 

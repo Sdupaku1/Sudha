@@ -11,14 +11,103 @@ It is used for Configuration Mangement,(is a software engineering discipline con
 
 ------>Orchestration:
 
-Orchestration is about bringing together different things into a coherent(logical) whole, meaning Anisble acts as an orchestartion tool which ensures all tasks happen in proper order.
+Orchestration is about bringing together different things into a coherent(logical) whole, meaning Anisble acts as an orchestartion tool to ensure all tasks happen in proper order.
 
 
-Modules:
+----->Modules:
 
-Modules are small plugins that are executed on the host and allow you to interact with the remote system, as if you were logged in via SSH. Common modules include: apt, service, file and lineinfile, but Ansible ships with hundreds of core modules, all of which are maintained by the core development team. 
+Modules are small pieces of code that performs a particular function. Common modules include: apt, service, copy, file and lineinfile, but Ansible ships with hundreds of core modules, all of which are maintained by the core development team.
+
+Most of the modules are idempotenet meaning they will execute only when a change is required.
 
 Modules greatly simplify the process of running commands on your remote systems, and cut down the need to manually write shell or bash scripts
+
+
+----->Ansible Roles:
+
+A role is a complete unit of automation that can be reused and shared.
+
+In practical terms, a role is a directory structure containing all the files, variables, handlers, Jinja templates, and tasks needed to automate a workflow. When a role is created, the default directory stucture contains the following:
+
+README.md
+defaults/
+    main.yml
+files/
+handlers/
+    main.yml
+meta/
+    main.yml
+tasks/
+    main.yml
+templates/
+tests/
+    inventory
+    test.yml
+vars/
+    main.yml
+Using the following keywords, roles can be imported and executed in an Ansible playbook play:
+
+roles
+import_role
+include_role
+
+------>Creating Role:
+
+Using the ansible-galaxy command line tool that comes bundled with Ansible, you can create a role with the init command. For example, the following will create a role directory structure called test-role-1 in the current working directory:
+
+$ ansible-galaxy init test-role-1
+
+
+The test-role-1 directory will contain the following:
+
+.travis.yml
+README.md
+defaults/
+    main.yml
+files/
+handlers/
+    main.yml
+meta/
+    main.yml
+tasks/
+    main.yml
+templates/
+tests/
+    inventory
+    test.yml
+vars/
+    main.yml
+
+
+----------->Path of roles created will be in /etc/ansible/roles
+
+------>When Galaxy imports a role, the import process looks for metadata found in the role’s meta/main.yml file for dependencies 
+
+Roles:
+
+Roles add organisation to playbooks. They allow you to split your complex build instructions into smaller reusable chunks, very much like a function in programming terms. This makes it possible to share your roles across different playbooks, without duplicating code.
+
+For example, you may have a role for installing Nginx and configuring sensible defaults, which can be used across multiple hosting environments.
+
+
+------>Use the ansible-galaxy command to download roles from the Galaxy server. For example, the following downloads the debops.apt role:
+
+$ ansible-galaxy install debops.apt
+
+
+---->Plays:
+
+A play is a set of tasks or roles (or both) inside a playbook. In most cases (and examples) a playbook will contain only one single play. But you can have as many as you like.
+
+You could have a playbook which will run the role postfix on the hostgroup mail_servers and the role mysql on the hostgroup databases:
+
+- hosts: mail_servers
+  roles:
+    - postfix
+
+- hosts: databases
+  roles:
+    - mysql
 
 
 How Ansible Works:
@@ -32,7 +121,7 @@ Relation ship between main pieces of Ansible:
      (Play book can be used to assign roles, run tasks(deleting files), use modules, substitute variables)
 
 
----->Playbooks:
+---->Playbooks:Playbooks are essentially sets of instructions (plays) that you send to run on a single target or groups of targets (hosts). 
 
 --->They define your deployment steps and configuration
 
@@ -57,14 +146,140 @@ tasks:
  -name: update apache
   yum: pkg=httpd state=latest
 
- -name: configure apache
-  template: src=/srv/httpd.j2 dest=/etc/httpd.conf
+ -name: configure apache                                [src = Path of a Jinja2 formatted template on the Ansible controller. This can be a relative or absolute path.]
+  template: src=/srv/httpd.j2 dest=/etc/httpd.conf       dest = Location to render the template to on the remote machine.
 
   notify:
   
   - restart apache
   -name: always run apache
    service: name=httpd state=started enabled=yes
+
+
+
+##Apache installation playbook
+
+[ec2-user@ip-172-31-6-118 ~]$ cat apache.yml
+---
+
+- hosts: test-servers                                 
+  become: yes
+  tasks:
+    - name: Install apache2 on node machines
+      yum: pkg=httpd24 state=latest
+      notify:                                   [The things listed in the notify section of a task are called handlers.Handlers are lists of tasks, not really any different from regular tasks]
+        - start http/apache                       If nothing notifies a handler it will not run.Regardless of how many tasks notify a handler, it will run only once, after all of the tasks complete in a particular play.]
+
+    - name: Listen http/apache2 on port 81
+      lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^Listen 80" line="Listen 81" state=present
+      notify:
+        - start http/apache
+
+  handlers:
+    - name: start http/apache
+      service: name=httpd state=restarted enabled=yes
+[ec2-user@ip-172-31-6-118 ~]$
+
+
+
+###Nginx Installation playbook:
+
+[ec2-user@ip-172-31-6-118 ~]$ cat nginx.yml
+---
+
+- hosts: test-servers
+  become: yes
+  tasks:
+    - name : install nginx on node machine
+      yum  : pkg=nginx state=installed
+
+
+      notify:           ##trigger
+        - start nginx
+
+  handlers:                         #in order to start handlers, you need to have a trigger
+    - name: start nginx
+      service: name=nginx enabled=yes state=started
+[ec2-user@ip-172-31-6-118 ~]$
+
+
+-------------->Steps to enable epel repo manually(in AMI)
+
+yum repolist all
+yum-config-manager --enable epel
+
+---->In RHEL 7
+
+install epel-repo by downloading it
+
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+yum install epel-release-latest-7.noarch.rpm
+
+yum repolist all(refresh repolist)
+
+yum install ansible
+
+ yum-config-manager --disable epel ------> to disbale repo
+
+
+########## to enable a repo on managed nodes:
+
+---
+
+- hosts: test-servers
+  become: yes
+  tasks:
+
+    - name: Enables epel repo on the host
+      command: yum-config-manager --enable epel
+
+
+
+------------>playbook to add single user on multiple servers.
+
+---
+- hosts: test-servers
+  sudo: yes
+  tasks:
+    - name: create user on multiple servers.
+	  user: uid=2018 group=docker password='i.DCLDoMLR/cA' comment=John shell=/bin/ksh generate_ssh_key=yes home=/home/John name=John state=present
+
+
+---------->playbook to add multiusers on multiple servers
+
+---
+- hosts: test-servers
+  become: yes
+  tasks:
+    - name: create user on multiple servers.
+      user:
+        uid: "{{ item.uid }}"
+        group: "{{ item.group }}"
+        password: "{{ item.password }}"
+        comment: "{{ item.comment }}"
+        shell: /bin/bash
+        generate_ssh_key: yes
+        home: /home/{{ item.name }}
+        name: "{{ item.name }}"
+        state: present
+
+      with_items:
+        - { name: Sudha, uid: 1002, group: docker, comment: NewUser, password: 'tL2zxcFwtrvUQ' }
+        - { name: Sagar, uid: 1004, group: docker, comment: NewUser, password: 'UQ0Eb03aqfhb2' }
+
+
+
+----------->To install multiple packages using with_items:
+
+- name: install Visual software
+    yum: pkg={{item}} state=installed
+    with_items:
+     - wxmacmolplt
+     - dia
+     - veusz
+
+
 
 
 

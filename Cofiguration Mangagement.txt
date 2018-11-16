@@ -1,8 +1,21 @@
 ----->Def: 
 
-It is a system engineering process for establishing and maintaining consistency of products performance, functional and physical attributes with its requirements, design and operational information through out its life.
+Configuration management as the name itself explains, is nothing but managing all the configurations of the environments that the software application hosts upon.
+
+we have different environments throughout the SDLC in DevOps starting with Unit testing, integration testing, system testing, acceptance testing and end-user testing.
+
+The environment set up’s for these tests would progressively become more complex as it moves towards pre-production and production environment.
+
+Basically, configuration management is the automated process to manage all the configurations of each of these environments.
+
+------> In DevOps, typically, all these configuration management processes are pretty well automated and the configurations are encapsulated in the form of code or scripts and controlled through the version control tool.
+
+
+
 
 In our context: Maintaining consistency of our software configuration.Tools that help us in achieving this is Ansible, saltstack, puppet, Chef.
+
+
 
 Provisioning:
 

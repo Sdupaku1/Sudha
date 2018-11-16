@@ -2,15 +2,27 @@
 
 Its is a containerization technology that packages your application and all its dependencies together in the form of containers to ensure seamless working of your app in any environment
 
+------->Benefit of Docker: Docker's only real benefit is that it can simplify application delivery by providing an easy packaging mechanism.
+
 ------>Containerization:
 
 It means bringing virtualization to OS level. All containers will be using the same host OS unlike Virtual Machines which has guest OS running.
 
-All binaries and libraries of containers will be on host OS.
+Application specific binaries and libraries of containers run on the host kernel, which makes processing and execution very fast. 
+
+Even booting-up a container takes only a fraction of a second. Because all the containers share, host operating system and holds only the application related binaries & libraries. They are lightweight and faster than Virtual Machines.
 
 **---->It consists of entire run-time environment, an application, all its dependencies, libraries, binaries and other config files needed to run bundled into one package.
 
 ----->Dynamic resource allocation of RAM in case of containers
+
+--------->Difference between Virtulaization and docker containers:
+
+Virtual machines provide isolation by devoting an entire operating system instance to each application that needs compartmentalizing. This approach provides almost total isolation, but at the cost of significant overhead. 
+
+Each guest operating instance eats up memory and processing power that could be better devoted to apps themselves.
+
+Containers take a different approach. Each application and its dependencies use a partitioned segment of the operating system’s resources. 
 
 ----------->Docker Container:
 
@@ -33,6 +45,10 @@ Docker is heavily used in Continuous testing phase to create testing environment
 
 ----------->How does Docker work?
 
+Docker has a client-server architecture. Docker Daemon or server is responsible for all the actions that are related to containers. The daemon receives the commands from the Docker client through CLI or REST API’s. 
+
+Docker client can be on the same host as a daemon or it can be present on any other host.
+
 ------>Docker Engine is the heart of Docker system. Docker works as a client-server program. 
 
 ------>Docker server consists of long running program called Docker daemon and the client is command line interface which is termed as Docker client.
@@ -49,16 +65,23 @@ Docker is heavily used in Continuous testing phase to create testing environment
 
 ---------------->Docker Images:
 
-They can be relatable to an executable file. Images are the building blocks of Docker conainers.These images are created by "build command".
+Docker Image can be compared to a template which is used to create Docker Containers. Images are the building blocks of Docker conainers.These images are created by "build command".
 
-These templates can be used to build docker container by using "Run" command.
+These images can be used to build docker container by using "Run" command.
+
+--------->Docker Container is a running instance of a Docker Image and they hold the entire package needed to run the application. This happens to be the ultimate utility of Docker. 
 
 
 ----------------> Docker Registry:
 
-Repository of Docker Images.
+A registry of Docker images. You can think of the registry as a directory of all available Docker images.
 
 Repo can be local or public. Examples of public docker repo is Docker Hub.
+
+
+Docker Daemon - The background service running on the host that manages building, running and distributing Docker containers. The daemon is the process that runs in the operating system to which clients talk to.
+
+Docker Client - The command line tool that allows the user to interact with the daemon.
 
 
 ---------------->Docker Architecture:
@@ -85,9 +108,33 @@ To pull a docker image from Docker Hub, we can use the command,
 docker pull <image:tag> tag: specifies the version of the image
 
 
------>To run it, docker run <image:tag> or docker run -it <image name>
+----->To run it, docker run <image:tag> or docker run -it <image name>  [docker run -it busybox sh; the run command with the -it flags attaches us to an interactive tty in the container.] 
+             
+[root@ip-172-31-31-218 ~]# docker run -d --name nginxcontainer -p 7070:80 nginx   (example for running docker image to get container, --name is nothing but giving a name to the docker container)
+9ce7ab72c8b757495c842f0a32cc161c9f723f3e12c4774a4fe7f275df3c557c
 
------>To get the list of all images in the system,     docker images 
+                                                                               
+----->To get the list of all images in the system,     docker images
+
+[root@ip-172-31-31-218 ~]# docker images
+REPOSITORY                          TAG                 IMAGE ID            CREATED             SIZE
+docker.io/busybox                   latest              59788edf1f3e        2 weeks ago         1.15 MB
+docker.io/hello-world               latest              4ab4c602aa5e        6 weeks ago         1.84 kB
+docker.io/prakhar1989/static-site   latest              f01030e1dcf3        2 years ago         134 MB
+
+
+----->The TAG refers to a particular snapshot of the image and the IMAGE ID is the corresponding unique identifier for that image
+
+You can also search for images directly from the command line using docker search.
+
+
+------>To get the ip address of a docker container:
+
+get container id, using docker ps
+
+use docker inspect "container-id"|grep "IPAddress"
+
+
 
 ----->To get list of all running containers,     docker ps
 
@@ -111,12 +158,49 @@ docker pull <image:tag> tag: specifies the version of the image
 
 --------->command is used to build an image from a specified docker file:  docker build <path to docker file>
 
+--------->To delete the stopped containers:  docker container prune
+
+
+
+-------->EVen though the containers are exited/stopped, the data remains by default until container is finally destroyed until "docker rm"
+
+-------->The command “docker export” lets you save a container’s filesystem as a tar archive. 
+         Later on, you could the create another one in same docker host or a new one using its counterpart, “docker import”
+
+$ docker export -o ephemeral.tar ephemeral
+$ tar tvf ephemeral.tar 
+....
+drwxr-xr-x  0 0      0           0  8 jun 18:28 var/spool/
+lrwxrwxrwx  0 0      0           0  8 jun 18:28 var/spool/mail -> ../mail
+drwxrwxrwt  0 0      0           0 11 jul 14:00 var/tmp/
+-rw-r--r--  0 0      0         178 11 jul 14:00 var/tmp/legacy
+$ tar xvf ephemeral.tar var/tmp/legacy
+$ cat var/tmp/legacy
+
+
 
 ------------------->Building Images:
 
-Images are comprised of many layers.Each layer is an image of its own.
 
-Each image has a base-layer which is read only.Changes made to image are saved as layer on top of Base Image layer.
+An important distinction to be aware of when it comes to images is the difference between base and child images.
+
+------->Base images are images that have no parent image, usually images with an OS like ubuntu, busybox or debian.
+
+------->Child images are images that build on base images and add additional functionality.
+
+Then there are official and user images, which can be both base and child images.
+
+------>Official images are images that are officially maintained and supported by the folks at Docker. These are typically one word long. In the list of images above, the python, ubuntu, busybox and hello-world images are official images.
+
+------->User images are images created and shared by users like you and me. They build on base images and add additional functionality. Typically, these are formatted as user/image-name
+
+
+---------->Docker file
+
+A Dockerfile is a simple text-file that contains a list of commands that the Docker client calls while creating an image. It's a simple way to automate the image creation process. 
+
+The best part is that the commands you write in a Dockerfile are almost identical to their equivalent Linux commands.
+
 
 Containers are generated by running the image layers which are stacked one above the other.
 
@@ -210,6 +294,322 @@ wen you initialize the swarm, you get a token. this token is used at the node en
 --------->Remove node: docker node rm <id>. If you are unable to remove the node, it may be connected to swarm. First leave the node from swarm by running:  docker swarm leave --force
 
 --------->
+
+
+
+
+ip-172-31-31-218
+
+----------->Installing docker on ec2 redhat instance
+
+------>check for this epel repo, if disabled enable it.
+
+------>yum repolist disabled -----
+
+------>yum-config-manager --enable "Red Hat Enterprise Linux Server 7 Extra(RPMs)"
+
+------> yum -y install docker (after repo is enabled)
+
+----->Enable required service to start after reboot:    systemctl enable docker
+
+------>service docker start -----
+
+---->docker run hello-world 
+
+op:  Unable to find image 'hello-world:latest' locally
+Trying to pull repository registry.access.redhat.com/hello-world ...
+Trying to pull repository docker.io/library/hello-world ...
+latest: Pulling from docker.io/library/hello-world
+d1725b59e92d: Pull complete
+Digest: sha256:0add3ace90ecb4adbf7777e9aacf18357296e799f81cabc9fde470971e499788
+Status: Downloaded newer image for docker.io/hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+
+
+------->-d detached mode in docker means docker container is detached from terminal and hence does not receive input or display output.(To detach the tty without exiting the shell,)
+
+docker run -d image 
+
+------>If you want to connect to the tty again : docker attach a6d91a82f9b5 (container-id)
+
+-------->Network communication in Docker:
+
+The overlay network driver creates a distributed network among multiple Docker daemon hosts. This network sits on top of (overlays) the host-specific networks, allowing containers connected to it (including swarm service containers) to communicate securely. 
+
+----->Docker transparently handles routing of each packet to and from the correct Docker daemon host and the correct destination container.
+
+When you initialize a swarm or join a Docker host to an existing swarm, two new networks are created on that Docker host:
+
+---->an overlay network called ingress, which handles control and data traffic related to swarm services. When you create a swarm service and do not connect it to a user-defined overlay network, it connects to the ingress network by default.
+
+---->a bridge network called docker_gwbridge, which connects the individual Docker daemon to the other daemons participating in the swarm.
+
+To create an overlay network for use with swarm services, use a command like the following:
+
+$ docker network create -d overlay my-overlay
+To create an overlay network which can be used by swarm services or standalone containers to communicate with other standalone containers running on other Docker daemons, add the --attachable flag:
+
+$ docker network create -d overlay --attachable my-attachable-overlay
+
+
+----------->small task to create own image using a web app, run it and see the app running
+
+Our goal in this section will be to create an image that sandboxes a simple Flask application. For the purposes of this workshop, I've already created a fun little Flask app that displays a random cat .gif every time it is loaded.
+
+$ git clone https://github.com/prakhar1989/docker-curriculum
+$ cd docker-curriculum/flask-app
+
+The next step now is to create an image with this web app. All user images are based off of a base image. Since application is written in Python, the base image we're going to use will be Python 3. More specifically, python:3-onbuild version of the python image.
+
+These images include multiple ONBUILD triggers, which should be all you need to bootstrap most applications. The build will COPY a requirements.txt file, RUN pip install on said file, and then copy the current directory into /usr/src/app
+
+In other words, the onbuild version of the image includes helpers that automate the boring parts of getting an app running. Rather than doing these tasks manually (or scripting these tasks), these images do that work.
+
+A Dockerfile is a simple text-file that contains a list of commands that the Docker client calls while creating an image. It's a simple way to automate the image creation process. The best part is that the commands you write in a Dockerfile are almost identical to their equivalent Linux commands.
+
+We start with specifying our base image. Use the FROM keyword to do that -
+
+FROM python:3-onbuild
+
+The next step usually is to write the commands of copying the files and installing the dependencies. Luckily for us, the onbuild version of the image takes care of that. 
+
+The next thing we need to specify is the port number that needs to be exposed. Since our flask app is running on port 5000, that's what we'll indicate.
+
+EXPOSE 5000
+
+The last step is to write the command for running the application, which is simply - python ./app.py. We use the CMD command to do that -
+
+CMD ["python", "./app.py"]
+
+The primary purpose of CMD is to tell the container which command it should run when it is started. With that, our Dockerfile is now ready. This is how it looks like 
+
+# our base image
+FROM python:3-onbuild
+
+# specify the port number the container should expose
+EXPOSE 5000
+
+# run the application
+CMD ["python", "./app.py"]
+
+Now that we have our Dockerfile, we can build our image. The docker build command does the heavy-lifting of creating a Docker image from a Dockerfile
+
+The docker build command is quite simple - it takes an optional tag name with -t and a location of the directory containing the Dockerfile.
+
+
+docker build -t sudhadn/catgif .
+
+Notice that the on-build triggers were executed correctly. If everything went well, your image should be ready! Run docker images
+
+The last step in this section is to run the image and see if it actually works (replacing my username with yours).
+
+$ docker run -p 8888:5000 sudhadn/catgif
+
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+
+The command we just ran used port 5000 the container, and exposed this externally on port 8888. Head over to the URL with port 8888, where app should be live.
+
+ curl http://localhost:8888   [ paste this url in browser, if no gui, use curl command)
+
+[root@ip-172-31-31-218 etc]# curl http://localhost:8888
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        background: black;
+        color: white;
+      }
+      div.container {
+        max-width: 500px;
+        margin: 100px auto;
+        border: 20px solid white;
+        padding: 10px;
+        text-align: center;
+      }
+      h4 {
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h4>Cat Gif of the day</h4>
+      <img src="https://firebasestorage.googleapis.com/v0/b/docker-curriculum.appspot.com/o/catnip%2F4.gif?alt=media&amp;token=e7daf297-e615-4dfc-aa19-bee959204774" />
+      <p><small>Courtesy: <a href="http://www.buzzfeed.com/copyranter/the-best-cat-gif-post-in-the-history-of-cat-gifs">Buzzfeed</a></small></p>
+    </div>
+  </body>
+
+
+
+----------->Example of docker file that creates an nginx container along with explanation:
+
+Simple Dockerfile for NGINX
+
+#
+# Each instruction in this file generates a new layer that gets pushed to your local image cache
+#
+
+#
+# Lines preceeded by # are regarded as comments and ignored
+#
+
+#
+# The line below states we will base our new image on the Latest Official Ubuntu 
+FROM ubuntu:latest
+
+#
+# Identify the maintainer of an image
+MAINTAINER My Name "myname@somecompany.com"
+
+#
+# Update the image to the latest packages
+RUN apt-get update && apt-get upgrade -y
+
+#
+# Install NGINX to test.
+RUN apt-get install nginx -y             [RUN – Specify commands to make changes to your Image and subsequently the Containers started from this Image]
+
+#
+# Expose port 80
+EXPOSE 80
+
+#
+# Last is the actual command to start up NGINX within our Container
+CMD ["nginx", "-g", "daemon off;"]
+#
+# Each instruction in this file generates a new layer that gets pushed to your local image cache
+#
+
+
+------------>Dockerfile Commands:
+ADD – Defines files to copy from the Host file system onto the Container
+ADD ./local/config.file /etc/service/config.file
+
+CMD – This is the command that will run when the Container starts(The CMD specifies arguments that will be fed to the ENTRYPOINT).
+A Dockerfile can only have one CMD.
+
+CMD ["nginx", "-g", "daemon off;"]
+CMD ["localhost"]
+
+ENTRYPOINT – The ENTRYPOINT specifies a command that will always be executed when the container starts.
+ENTRYPOINT ["/bin/ping"]
+
+Example:
+
+FROM debian:wheezy
+ENTRYPOINT ["/bin/ping"]
+CMD ["localhost"]
+
+---->build docker image from above docker file like docker build -t sudhadn/test .
+
+----->Run image like docker run -it sudhadn/test 
+
+the default entries in ENTRYPOINT and CMD will be executed which is ping localhost
+
+$ docker run -it test
+PING localhost (127.0.0.1) 56(84) bytes of data.
+64 bytes from localhost (127.0.0.1): icmp_req=1 ttl=64 time=0.049 ms
+64 bytes from localhost (127.0.0.1): icmp_req=2 ttl=64 time=0.042 ms
+64 bytes from localhost (127.0.0.1): icmp_req=3 ttl=64 time=0.040 ms
+64 bytes from localhost (127.0.0.1): icmp_req=4 ttl=64 time=0.044 ms
+64 bytes from localhost (127.0.0.1): icmp_req=5 ttl=64 time=0.047 ms
+64 bytes from localhost (127.0.0.1): icmp_req=6 ttl=64 time=0.043 ms
+^C
+
+
+---Now, running the image with an argument will ping the argument
+
+$ docker run -it test google.com (this arguement will be replacing the default arguement of CMD) and executes like ping google.com
+
+PING google.com (172.217.26.238) 56(84) bytes of data.
+64 bytes from bom05s09-in-f14.1e100.net (172.217.26.238): icmp_req=1 ttl=52 time=1.39 ms
+64 bytes from bom05s09-in-f14.1e100.net (172.217.26.238): icmp_req=2 ttl=52 time=1.44 ms
+64 bytes from bom05s09-in-f14.1e100.net (172.217.26.238): icmp_req=3 ttl=52 time=1.44 ms
+64 bytes from bom05s09-in-f14.1e100.net (172.217.26.238): icmp_req=4 ttl=52 time=1.48 ms
+64 bytes from bom05s09-in-f14.1e100.net (172.217.26.238): icmp_req=5 ttl=52 time=1.50 ms
+^C
+--- google.com ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4006ms
+rtt min/avg/max/mdev = 1.399/1.458/1.508/0.037 ms
+
+---->When you run a container the process you launch(ping localhost or ping arguement) take the PID 1 and assume init power. So when that process is terminated the docker daemon stop the container until a new process is launched (via docker start) 
+
+
+ENV – Set/modify the environment variables within Containers created from the Image.
+ENV VERSION 1.0
+
+EXPOSE – Define which Container ports to expose
+EXPOSE 80
+
+FROM – Select the base image to build the new image on top of
+FROM ubuntu:latest
+
+MAINTAINER – Optional field to let you identify yourself as the maintainer of this image
+MAINTAINER Some One "someone@xyz.xyz"
+
+RUN – Specify commands to make changes to your Image . This includes updating packages, installing software, adding users, creating an initial database, setting up certificates, etc. These are the commands you would run at the command line to install and configure your application.
+(This command is run at the build stage of container.State of the container after a RUN command will be committed to the docker image. A Dockerfile can have many RUN steps that layer on top of one another to build the image.)
+
+RUN apt-get update && apt-get upgrade -y && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
+
+USER – Define the default User all commands will be run as within any Container created from your Image. It can be either a UID or username
+USER docker
+
+VOLUME – Creates a mount point within the Container linking it back to file systems accessible by the Docker Host. New Volumes get populated with the pre-existing contents of the specified location in the image. It is specially relevant to mention is that defining Volumes in a Dockerfile can lead to issues. Volumes should be managed with docker-compose or “docker run” commands.
+VOLUME /var/log
+
+WORKDIR – Define the default working directory for the command defined in the “ENTRYPOINT” or “CMD” instructions
+WORKDIR /home
+
+
+---------->Disadvantages of Docker:
+
+--->Not all applications benefit from containers:
+
+In general, only applications that are designed to run as a set of discreet microservices stand to gain the most from containers. Otherwise, Docker's only real benefit is that it can simplify application delivery by providing an easy packaging mechanism.
+
+(In microservice architecture, an application is divided into set of services. 
+
+Each service supports a specific task or business goal and uses a simple, well-defined interface, such as an application programming interface (API), to communicate with other sets of services.
+
+The microservice paradigm provides development teams with a more decentralized approach to building software. 
+
+For example, if a program isn't properly generating reports, it can be easier to trace the problem to that specific service. That specific service could then be tested, restarted, patched and redeployed as needed, independent of other services.)
+
+--->Graphical applications don't work well:
+
+Docker was designed as a solution for deploying server applications that don't require a graphical interface. While there are some creative strategies (such as X11 video forwarding) that you can use to run a GUI app inside a container
+
+these solutions are clumsy(difficult to handle) at best.
+
+--->Persistent data storage is complicated:
+
+By design, all of the data inside a container disappears forever when the container is removed using "docker rm" unless you save it somewhere else first. There are ways to save data persistently in Docker, such as Docker Data Volumes, but this is arguably a challenge that still has yet to be addressed in a seamless way.
+
+(Before removing the container you can take container's file system as a tar using docker export)
+
+----->Docker containers have performance issues performance overhead due to overlay networking, interfacing between containers and the host system and so on.If the performance has to be 
+
+100%, you should go for bare metal servers rather than containers.
+
+
+
+
+
+
+
 
 
 

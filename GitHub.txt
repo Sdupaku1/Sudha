@@ -7,7 +7,7 @@ GIT terminology:
 ----->origin: the default name that git gives to your main remote repo. 
 
 
-DevOps is an approach to bridge the gap between software development and operations.
+DevOps is an approach to bridge the gap between software development and operations in an SDLC.Devops is a culture, it's a way of thinking that both DEV and OPS teams has to adopt in order to work faster to increase their poductivity.
 
 --->It’s a culture that you can adopt for continuous improvement. It will help you to bring your Developer Team and Operations Team on the same page, allowing them to work together with ease.
 

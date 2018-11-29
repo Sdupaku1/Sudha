@@ -50,7 +50,7 @@ You are able to run one job at a time if you have one executor. If you have two 
 
 ----->Remote root directory: An agent needs to have a directory dedicated to Jenkins. Specify the path to this directory on the agent such as /var/jenkins/node1. This should be a path local to the agent machine. 
 
-/var/lib/jenkins
+/var/lib/jenkins. This is the directory on the slave that Jenkins will use for it's workspace
 
 ------>Labels:Labels (or tags) are used to group multiple agents into one logical group.
 
@@ -245,7 +245,7 @@ There will be jobs configured for each of the above task like SampleBuildJob, Sa
 
 --->Create Pipeline line view by clicking on new tab symbol then select the initial job and Apply. Finally CLick the Run
 
-
+the Pipeline plugin makes pipelines scriptable and it is an incredibly powerful way to develop complex, multi-step DevOps pipelines.
 
 
 

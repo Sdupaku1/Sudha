@@ -1,0 +1,20 @@
+Maven is a build tool.It helps to build our code.
+
+it helps as project management tool generating reports.
+
+groupid --- package name
+artifact id: 
+
+phases of build:
+
+validate: checks for pom.xml and correct configuration present in it
+
+compile: compiles the code present in main folder, like .java files will get compiled to .class files.(source files converted to class file). Puts the compiled output to a 'tagret' folder.
+
+test: all test cases present in test folder will be used to test with exisiting code.
+
+package: if above stages completes sucessfully, in package phase we will get the artifact in the form of jar/war/ear file.
+
+install: this phase is used to save ur jar files to a local repository. further if any program needs this, it will pickup from local repo.
+
+deploy: if u want to send ur artifact to a remote repository so that other users can download those artifacts and use.

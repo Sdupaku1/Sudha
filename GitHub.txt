@@ -4,7 +4,12 @@ GIT terminology:
 
 ----->master: the name of the default branch that git creates for you when first creating a repo. In most cases, "master" means "the main branch.
 
------>origin: the default name that git gives to your main remote repo. 
+----->origin: the default name that git gives to your main remote repo.
+
+------>Downstream/Upstream: In terms of source control, you're "downstream" when you copy (clone, checkout, etc) from a repository. Information flowed "downstream" to you.
+
+When you make changes, you usually want to send them back "upstream" so they make it into that repository so that everyone pulling from the same source is working with all the same changes.
+
 
 
 DevOps is an approach to bridge the gap between software development and operations in an SDLC.Devops is a culture, it's a way of thinking that both DEV and OPS teams has to adopt in order to work faster to increase their poductivity.
@@ -301,7 +306,66 @@ you can also get 'git reset' to alter the staged snapshot and/or the working dir
 --------->git reset is best used for undoing local private changes
 
 
+--------->Commit History has to be linear. It enables faster debugging.
 
+You have to use git rebase to attain that linear history.
+
+At a high level, rebasing can be understood as “moving the base of a branch onto a different position/commit”.
+
+To know if command hisory is linear or not, git rev-list --min-parents=2 --count A..G(A being first commit, G being last).
+
+Another Solution is git log --oneline --min-parents=2 A..G
+
+--------->git stash:
+
+Often, when you’ve been working on part of your project, things are in a messy state and you want to switch branches for a bit to work on something else. 
+
+The problem is, you don’t want to do a commit of half-done work just so you can get back to this point later. The answer to this issue is the git stash command.
+
+Stashing takes the dirty state of your working directory — that is, your modified tracked files and staged changes and saves it on a stack of unfinished changes that you can reapply at any time.
+
+Now you want to switch branches, but you don’t want to commit what you’ve been working on yet; so you’ll stash the changes. To push a new stash onto your stack, run 
+
+git stash:
+
+$ git stash
+Saved working directory and index state \
+  "WIP on master: 049d078 added the index file"
+HEAD is now at 049d078 added the index file
+(To restore them type "git stash apply")
+
+To see which stashes you’ve stored, you can use git stash list:
+
+git stash list
+stash@{0}: WIP on master: 049d078 added the index file
+stash@{1}: WIP on master: c264051 Revert "added file_size"
+stash@{2}: WIP on master: 21d80a5 added number to log
+
+You can reapply the one you just stashed by using the command shown in the help : git stash apply. 
+
+$ git stash apply
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#
+#      modified:   index.html
+#      modified:   lib/simplegit.rb
+
+----->If u run above command, the staged files/changes will not be re-applied. To apply them, use command: git stash apply --index.
+
+The apply option only tries to apply the stashed work — you continue to have it on your stack. To remove it, you can run "git stash drop" with the name of the stash to remove:
+
+$ git stash list
+stash@{0}: WIP on master: 049d078 added the index file
+stash@{1}: WIP on master: c264051 Revert "added file_size"
+stash@{2}: WIP on master: 21d80a5 added number to log
+
+$ git stash drop stash@{0}
+Dropped stash@{0} (364e91f3f268f0900bc3ee613f9f733e82aaed43)
+
+
+
+------------>https://gist.github.com/gregrickaby/70f10dfa9385c1d5cc49f99562ffb816  ------- git cheatsheet.
 
 
 

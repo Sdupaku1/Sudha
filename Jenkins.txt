@@ -1,11 +1,95 @@
 Source:https://www.edureka.co/blog/what-is-jenkins/
 
+Log file will be placed in /var/log/jenkins/jenkins.log. Check this file if you are troubleshooting Jenkins.
+
+
+
+/var/lib/jenkins --- default home dir for jenkins installation
+
+cat /etc/sysconfig/jenkins ---- config file for Jenkins
+
+
+
+--------->Jenkins Architecture:(Jenkins Distributed Architecture)
+
+Jenkins uses a Master-Slave architecture to manage distributed builds. In this architecture, Master and Slave communicate through TCP/IP protocol.
+
+Each builds requires a different testing environment which is not possible in a single Jenkins server. In order to perform testing in different environments Jenkins uses various Slaves.
+
+If larger and heavier projects get built on a regular basis then a single Jenkins server cannot simply handle the entire load.
+
+---->Jenkins Master
+
+Your main Jenkins server is the Master. The Master’s job is to handle:
+
+Scheduling build jobs.
+Dispatching builds to the slaves for the actual execution.
+Monitor the slaves (possibly taking them online and offline as required).
+Recording and presenting the build results.
+A Master instance of Jenkins can also execute build jobs directly.
+
+------>Jenkins Slave
+
+An agent is a computer that is set up to offload build projects from the master and once setup this distribution of tasks is fairly automatic. The exact delegation behavior depends on the configuration of each project; 
+some projects may choose to "stick" to a particular machine for a build, while others may choose to roam freely between agents
+
+A Slave is a Java executable that runs on a remote machine. Following are the characteristics of Jenkins Slaves:
+
+It hears requests from the Jenkins Master instance.
+Slaves can run on a variety of operating systems.
+The job of a Slave is to do as they are told to, which involves executing build jobs dispatched by the Master.
+You can configure a project to always run on a particular Slave machine, or a particular type of Slave machine, or simply let Jenkins pick the next available Slave.
+
+
+---------->Creating slaves in Jenkins:
+
+Below are the fields encountered while configuring the slave:
+
+-----># of executors:An executor is a process that runs a build/job.
+You are able to run one job at a time if you have one executor. If you have two executors, you are able to run two jobs in parallel and so forth
+
+----->Remote root directory: An agent needs to have a directory dedicated to Jenkins. Specify the path to this directory on the agent such as /var/jenkins/node1. This should be a path local to the agent machine. 
+
+/var/lib/jenkins
+
+------>Labels:Labels (or tags) are used to group multiple agents into one logical group.
+
+For example, if you have multiple Windows agents and you have a job that must run on Windows, then you could configure all your Windows agents to have the label windows, and then tie that job to this label. 
+
+ex: unix
+
+------>Launch method: Launch via ssh
+Host: Give Private ip of node
+select the credentials from the list, if adding newly, select add: then select SSH username with private key.
+Host Key Verification Strategy: known hosts file verification strategy.
+----->Host Key Verification Strategy : Method of how Jenkins verifies the SSH key presented by the remote host while connecting.
+------>SSH clients store host keys of hosts they have ever connected to. These stored host keys are called known host keys, and the collection is often called known hosts
+
+
+-------->Availability: keep the agent online as much as possible.
+
+Commands to be run on master:
+
+ssh-keyscan -H 172.31.31.218 >> /var/lib/jenkins/.ssh/known_hosts (run as root)(ssh-keyscan is a utility for gathering the public ssh host keys of a number of hosts. )
+chown jenkins:jenkins /var/lib/jenkins/.ssh/known_hosts
+chmod 700 /var/lib/jenkins/.ssh/known_hosts
+
+
+to be run on slave:
+
+create jenkins user with home dir
+
+ssh-keygen -t rsa
+
+cat id_rsa.pub >> authorized_keys
+
+chmod 700 authorized_keys
+
+
 
 ------------>Continuous Integration Def:
 
-Continuous Integration, in DevOps is nothing but merging individual developers code into the main branch where version control is maintained.
-
-As and when the developer checks in their code to the version control, immediately the process of CI kick starts.
+(Continuous Integration (CI) is a development practice that requires developers to integrate code into a shared repository several times a day. Each check-in is then verified by an automated build, allowing teams to detect problems early.)
 
 The CI process includes,
 
@@ -87,6 +171,29 @@ Enter:
 ----->If you get any error like this($'\r': command not found), while executing the command in cygiwn, run this dos2unix filename or 
 
 Remove trailing \r character that causes this error: xsed -i 's/\r$//' filename
+
+
+-------------->Installing Jenkins on RHel:
+
+Installation
+Add the Jenkins repository to the yum repos, and install Jenkins from here.
+
+------>sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+sudo yum install jenkins
+
+----->Installation of Java
+Jenkins requires Java in order to run, yet certain distros don't include this by default. To install the Open Java Development Kit (OpenJDK) run the following:
+
+sudo yum install java
+
+---Start/Stop
+sudo service jenkins start/stop/restart
+sudo chkconfig jenkins on
+
+The first time you use the dashboard at http://your-server-publicIPaddress:8080, you will be prompted to unlock Jenkins:
+
+
 
 
 
@@ -348,7 +455,24 @@ OUTPUT_PATH = './outputs/'
 
 }
 
-------->
+------->Parallel
+
+Jenkins pipeline Stages can have other stages nested inside that will be executed in parallel. This is done by adding the "parallel" directive to your script.
+
+-------->Install jenkins plugin offline
+
+If jenkins server is not connected to internet, you can still download the available plugin.
+
+Step 1: First download plugin from Jenkins plugin directory.
+https://updates.jenkins-ci.org/download/plugins/
+
+Step 2: Here you find your desired plugin and clicked on plugin name, now .hpi file will downloaded.
+
+Step 3: Now open Jenkins and go to Manage Jenkins > Manage Plugins > Advance configuration(tab)
+
+Step 4: Upload your-plugin.hpi file and save.
+
+Step 5: Restart Jenkins.
 
 
 

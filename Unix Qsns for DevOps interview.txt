@@ -1,0 +1,126 @@
+--------->what is Inode:
+
+An inode is a data structure on a Unix-style file system and stores basic information about a file like following attributes:
+
+=> File type (executable, block special etc)
+=> Permissions (read, write etc)
+=> Owner
+=> Group
+=> File Size
+=> File access, change and modification time (remember UNIX or Linux never stores file creation time, this is favorite question asked in UNIX/Linux sys admin job interview)
+=> File deletion time
+=> Number of links (soft/hard)
+=> Access Control List (ACLs)
+
+In short the inode identifies the file and its attributes (as above) . Each inode is identified by a unique inode number within the file system. 
+
+To check inode number of a file; ls -i /etc/passwd
+
+------->Physical memory in Linux
+
+It is checked by using free command. To get in gb, command is free -g
+
+By seeing the file /proc/meminfo file
+
+or 
+
+by using top command
+
+
+-------->Command to delete empty files under a directory:
+
+find . -type f -empty -delete
+
+--------->How would you make sure a service starts on an OS (Linux)?
+
+InRHEL 6; we use chkconfig; 
+
+ex: to start httpd service on start, first add the script to chkconfig
+
+chkconfig --add httpd
+
+chkconfig httpd on
+
+RHEL 7:
+
+it uses systemd to manage services on boot.
+
+systemctl enable httpd -----> to enable on boot.
+
+
+systemctl status httpd ---->to check the status.
+
+
+--------------->How to Kill all the procs by a particular user without using pkill
+
+
+
+
+--------------->Difference between TCP and UDP:
+
+What is the difference between TCP and UDP?
+
+The network scanner supports TCP and UDP. Here is some information about TCP and UDP and the differences between the different protocols.
+
+General
+Both TCP and UDP are protocols used for sending bits of data — known as packets — over the Internet. They both build on top of the Internet protocol. In other words, whether you are sending a packet via TCP or UDP, that packet is sent to an IP address. These packets are treated similarly, as they are forwarded from your computer to intermediary routers and on to the destination.
+
+TCP and UDP are not the only protocols that work on top of IP. However, they are the most widely used. The widely used term “TCP/IP” refers to TCP over IP. UDP over IP could just as well be referred to as “UDP/IP”, although this is not a common term.
+
+TCP:
+
+TCP stands for Transmission Control Protocol. It is the most commonly used protocol on the Internet.
+
+When you load a web page, your computer sends TCP packets to the web server’s address, asking it to send the web page to you. The web server responds by sending a stream of TCP packets, which your web browser stitches together to form the web page and display it to you. When you click a link, sign in, post a comment, or do anything else, your web browser sends TCP packets to the server and the server sends TCP packets back. 
+
+TCP is not just one way communication — the remote system sends packets back to acknowledge it is received your packets.
+
+TCP guarantees the recipient will receive the packets in order by numbering them. The recipient sends messages back to the sender saying it received the messages. If the sender does not get a correct response, it will resend the packets to ensure the recipient received them. 
+
+Packets are also checked for errors. TCP is all about this reliability — packets sent with TCP are tracked so no data is lost or corrupted in transit. This is why file downloads do not become corrupted even if there are network hiccups. Of course, if the recipient is completely offline, your computer will give up and you will see an error message saying it can not communicate with the remote host.
+
+UDP
+UDP stands for User Datagram Protocol — a datagram is the same thing as a packet of information. The UDP protocol works similarly to TCP, but it throws all the error-checking stuff out. All the back-and-forth communication and deliverability guarantees slow things down.
+
+When using UDP, packets are just sent to the recipient. The sender will not wait to make sure the recipient received the packet — it will just continue sending the next packets. If you are the recipient and you miss some UDP packets, too bad — you can not ask for those packets again. 
+
+There is no guarantee you are getting all the packets and there is no way to ask for a packet again if you miss it, but losing all this overhead means the computers can communicate more quickly.
+
+UDP is used when speed is desirable and error correction is not necessary. For example, UDP is frequently used for live broadcasts and online games.
+
+
+-------->what is ICMP and why we should block it?
+
+ICMP (Internet Control Message Protocol) is an error-reporting protocol network devices like routers use to generate error messages to the source IP address when network problems prevent delivery of IP packets. 
+
+Any IP network device has the capability to send, receive or process ICMP messages
+
+ICMP is a bit of a diagnostic utility, and it is a bit of an error-reporting mechanism. It's used to tell a network device about a problem in the network when sending an IP packet.
+
+Network endpoints and routers should generate these ICMP messages as a result of one or more network conditions that may result in a packet not being delivered correctly to it's destination. That is, if you send a packet to an IP address for which no route exists, expect a router in the path to respond back to you with a "destination unreachable" ICMP message.
+
+--->What are the consequences of blocking ICMP?
+
+When you block ICMP, you are effectively filtering or dropping these warning packets from being delivered back to the sending endpoint. That IP packet that sent off before never got there, but you'll never find out about it because the ICMP "destination unreachable" message was discarded before it reached you. Therefore your computer just assumes that nothing went wrong, and it will sit and wait, quite often for a long time, 
+
+before giving up on expecting a response. This is known as a "timeout".Had the "destination unreachable" packet made it back to you, you would know that there was a problem with the destination and your computer would give up instantaneously on that connection. You, or your application, would not be forced to wait (sometimes up to 60 seconds, or more!) for the connection to "timeout".
+
+Security issues with ICMP tend to be the more nebulous "information disclosure" issues. E.g. If your router sends an ICMP message back to someone, then that someone knows you have a router. Maybe the attacker knowing you have a router is something you're worried about, or more likely it's not. But security research tends to err on the side of silence just to be on the safe side, just in case.
+
+
+---------->what is ping?
+
+Ping is a computer network administration software utility used to test the reachability of a host on an Internet Protocol (IP) network. ... Ping operates by sending Internet Control Message Protocol (ICMP) echo request packets to the target host and waiting for an ICMP echo reply.
+
+------------>How is a hostname resolved on a Linux machine ?(nslookup needs bind-utils package to be installed)
+
+if we just nslookup hostname command, nslookup command uses DNS servers to resolve that name to ipaddress.nslookup only does proper DNS resolution.
+
+/etc/hosts file is generally checked by any other applications.
+
+
+
+
+
+
+

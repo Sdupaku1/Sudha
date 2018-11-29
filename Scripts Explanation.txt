@@ -1,0 +1,80 @@
+OVO Script:
+
+HP Open View Operations is a monitoring s/w designed to help administartors detect and solve issues occuring in n/w's, systems and applications in any organization.
+
+OVO notifies when a problem is about to occur or just occured and provides with resources to avoid/solve  the problem.
+
+After installing and configuring the OVO, it reads log files, Console messages, and SNMP traps, monitors performance on server.
+
+How it does:
+
+OVO Concept is based on communication between a management server and managed nodes. It manages the nodes by running agent processes on it.processes running on mgmt server communicate with
+
+OVO agents on nodes. Communication consist of events(occurences on node) and actions.An action is a corrective response to a event. If the event is a problem, OVO can start an action to correct the problem.
+
+An action can be a shell script,program, command, application start, in response to problem.
+
+OVO agent supports Automatic actions which are preconfigured responses to problems.My Script is one such response.
+
+what it does is , In general, ovo agents sends action responses, ovo agent alive packets to HPOM Server in the form of OVO messages.
+
+If any of the OVO agent is not running for some reason, Info cant be carried to mgmt server. Msgs are retained on a local storage buffer until mgmt server can receive them again.
+
+when any of the OVO agents are in Aborted state or communication between server and node is buffering, my script is provided as Automatic action to correct the same.It performs the restart of agents/cleanstart.
+
+
+
+----->TIM checks:(Tivoli Identity Manaer)
+
+TIM is an IBM tool which is used in user mangement processes like creation of user account, setting passwords etc for employees on number of servers.
+
+It requires an agent to be installed on client to do those tasks. To establish the communication between tim server and unix client, we need to perform some checks from unix side
+
+like, reachability of the server from client using traceroute, agent running on the server, required port opened or not, timuser id is present or not and its password is not expired etc.
+
+I have automated all the above steps and it will show a message that checks have been completed successfully if above conditions are met.
+
+
+--------->BESClinet:
+
+It is an an app related service that needs o be running on unix servers. It has to be installed/ checked in 100 hundreds of servers. My script has helped to achieve this.
+
+First it will check if service is running or not, if service is not running it will try to restart the service and verify if it is running after.
+
+If it is still in manitenance state, it will check if related package is installed or not. It tries to install the package from pre-defined path and checks for the status of the service again.
+
+so, this way it tries to make service online.
+
+
+-------->/var/log/messages script
+
+As we know, /var/log/messages is very important file as it includes many messages related to system like cron, mail, kernel, auth, daemon. So, we noticed that in many servers, this file is not getting updated
+
+from many days, for that we need to restart syslog service which was achieved through a script.
+
+The script works by checking the date of the file and compared with current date, if its a mismatch, it will restart the required service and checks for the date stamp again.
+
+---------->RTPA checks.
+
+Release to Production Acceptance (RTPA) checks are required to ensure that the server meet the expectations before it can be moved to production. 
+
+It includes the process of installing tools, inspection, and troubleshooting manually. Some of the steps are automated by me.
+
+For example, there is a stage, wehre we need to check the server attributes from our internal database called ESL which is manual procedure, now its automated using python.
+
+How it works is, 
+
+we send a web service request consisting of the required server name, to pull the data using website's API.
+
+once the data is pulled, text is parsed using re module to get the requested fields.
+
+
+
+
+
+
+
+
+
+
+

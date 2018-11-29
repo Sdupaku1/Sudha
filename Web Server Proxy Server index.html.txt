@@ -1,0 +1,69 @@
+Proxy Server:
+
+A proxy server is a computer that acts as an intermediary between the user's computer and the Internet. If proxy server is used, client computers will first connect to the proxy server, requesting some resources like web pages, games, videos, mp3, e-books, any other resources which are available from various servers over Internet. 
+
+As soon as getting such request, the proxy server will seek for the resources from the cache in its local hard disk. If the resources have been cached before, the proxy server will return them to the client computers. If not cached, it will connect to the relevant servers and request the resources on behalf of the client computers. 
+
+Then it 'caches' resources from the remote servers, and returns subsequent requests for the same content directly.
+
+Nowadays, we use proxy server for various purpose:
+
+
+---->To speed up Internet surfing:  If use proxy server, all requests from client computers will reach the proxy server at first, if the proxy server has cached the required resources in its local hard disk before with the web cache function, clients will get feedback directly from proxy server, it will be more quickly than direct accessing.
+
+
+--->To hide the IP address of the client computer so that it can surf anonymous, this is mostly for security reasons. A proxy server can act as an intermediary between the user's computer and the Internet to prevent from attack and unexpected access.
+
+
+
+Webserver:
+
+web server is any internet server that responds to HTTP requests to deliver content and services.
+
+---->Index.html:
+
+The index.html page is the most common name used for the default page shown on a website if no other page is specified when a visitor requests the site. In other words, index.html is the name used for the homepage of the website.
+
+----->Blue Green Deployment:
+
+Blue-green deployment is a technique that reduces downtime and risk by running two identical production environments called Blue and Green.
+
+At any time, only one of the environments is live, with the live environment serving all production traffic. For this example, Blue is currently live and Green is idle.
+
+As you prepare a new version of your software, deployment and the final stage of testing takes place in the environment that is not live: in this example, Green. Once you have deployed and fully tested the software in Green, 
+
+you switch the router so all incoming requests now go to Green instead of Blue. This technique can eliminate downtime due to application deployment. In addition, blue-green deployment reduces risk.
+
+------>Infrastructure as Code (IAC) is a type of IT infrastructure that operations teams can automatically manage and provision through code, rather than using a manual process. Infrastructure as Code is sometimes referred to as programmable infrastructure.
+
+------>Load Balancer:
+
+Load balancing relates to how one distributes traffic to the instances.The load balancer provides an easy mechanism to provide a single interface/IP address to the outside world and it has knowledge of which instances it is load balancing in real time.
+
+------->defaultgateway
+
+A gateway is a node or a router that acts as an access point to pass network data from local networks to remote networks. There are many ways to find out your gateway in Linux. 
+
+to add a defaultgateway:
+
+route add default gw 192.168.1.254 eth0
+
+------->What are Design Patterns?
+
+In simple terms, Design Patterns are the solution to problems faced by developers- they represent the best practices that are used by developers. Design Patterns help an inexperienced developer to learn easily and quickly
+
+-------->what is TCP/IP:
+
+The Internet works by using a protocol called TCP/IP, or Transmission Control Protocol/Internet Protocol. In base terms, TCP/IP allows one computer to talk to another computer via the Internet through compiling packets of data and sending them to right location.
+
+
+As indicated in the name, there are two layers to TCP/IP. The top layer, TCP, is responsible for taking large amounts of data, compiling it into packets and sending them on their way to be received by a fellow TCP layer, which turns the packets into useful information/data.
+
+The bottom layer, IP, is the locational aspect of the pair allowing the packets of information to be sent and received to the correct location. 
+
+If you think about IP in terms of a map, the IP layer serves as the packet GPS to find the correct destination. 
+
+In summary, TCP is the data. IP is the Internet location GPS.
+
+
+

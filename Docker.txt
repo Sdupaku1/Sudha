@@ -1,16 +1,37 @@
+Answer to what is containerization:
+
+Containers are a solution to the problem of how to get software to run reliably when moved from one computing environment to another. This could be from a developer's laptop to a test environment, from a staging environment into production and 
+
+perhaps from a physical machine in a data center to a virtual machine in a private or public cloud.
+
+Put simply, a container consists of an entire runtime environment: an application, plus all its dependencies, libraries and other binaries, and configuration files needed to run it, bundled into one package. 
+
+By containerizing the application platform and its dependencies, differences in OS distributions and underlying infrastructure are abstracted away.
+
+This is different from VM (virtualization) and how?
+
+With virtualization technology, the package that can be passed around is a virtual machine and it includes an entire operating system as well as the application. 
+
+A physical server running three virtual machines would have a hypervisor and three separate operating systems running on top of it.
+
+By contrast a server running three containerized applications as with Docker runs a single operating system, and each container shares the operating system kernel with the other containers. 
+
+Shared parts of the operating system are read only, while each container has its own mount (i.e., a way to access the container) for writing. 
+
+That means the containers are much more lightweight and use far fewer resources than virtual machines.
+
+A container may be only tens of megabytes in size, whereas a virtual machine with its own entire operating system may be several gigabytes in size.
+
+Because of this, a single server can host far more containers than virtual machines. Virtual machines may take several minutes to boot up their operating systems and begin running the applications they host.
+
+containerized applications can be started almost instantly
+
+
 ------>Docker:
 
 Its is a containerization technology that packages your application and all its dependencies together in the form of containers to ensure seamless working of your app in any environment
 
 ------->Benefit of Docker: Docker's only real benefit is that it can simplify application delivery by providing an easy packaging mechanism.
-
------->Containerization:
-
-It means bringing virtualization to OS level. All containers will be using the same host OS unlike Virtual Machines which has guest OS running.
-
-Application specific binaries and libraries of containers run on the host kernel, which makes processing and execution very fast. 
-
-Even booting-up a container takes only a fraction of a second. Because all the containers share, host operating system and holds only the application related binaries & libraries. They are lightweight and faster than Virtual Machines.
 
 **---->It consists of entire run-time environment, an application, all its dependencies, libraries, binaries and other config files needed to run bundled into one package.
 
@@ -35,7 +56,7 @@ Docker is designed to benefit both developers and system Admins.
 
 ---->Developers can write code with out worrying about testing/production environemnt.
 
----->System Admins need not worry about infrastructure as docker can be easily scaled up/down the number of systems.
+---->System Admins need not worry about infrastructure as docker can be used to easily scale the number of systems.
 
 
 ----------->How is docker used in DevOps:
@@ -132,7 +153,7 @@ You can also search for images directly from the command line using docker searc
 
 get container id, using docker ps
 
-use docker inspect "container-id"|grep "IPAddress"
+use:  docker inspect "container-id"|grep "IPAddress"
 
 
 
@@ -143,8 +164,6 @@ use docker inspect "container-id"|grep "IPAddress"
 ------>To delete the container, use below comand after stopping contaner: docker rm <container-id>
 
 ------>To delete an image we can use :   docker rmi <image id>
-
---------->To stop the container : docker stop <image id>
 
 --------->To access a running container:  docker exec -it <container id> bash
 
@@ -162,7 +181,7 @@ use docker inspect "container-id"|grep "IPAddress"
 
 
 
--------->EVen though the containers are exited/stopped, the data remains by default until container is finally destroyed until "docker rm"
+-------->Even though the containers are exited/stopped, the data remains by default until container is finally destroyed using "docker rm <container-id>"
 
 -------->The command “docker export” lets you save a container’s filesystem as a tar archive. 
          Later on, you could the create another one in same docker host or a new one using its counterpart, “docker import”
@@ -186,7 +205,7 @@ An important distinction to be aware of when it comes to images is the differenc
 
 ------->Base images are images that have no parent image, usually images with an OS like ubuntu, busybox or debian.
 
-------->Child images are images that build on base images and add additional functionality.
+------->Child images are images that are built on base images and add additional functionality.
 
 Then there are official and user images, which can be both base and child images.
 
@@ -197,7 +216,7 @@ Then there are official and user images, which can be both base and child images
 
 ---------->Docker file
 
-A Dockerfile is a simple text-file that contains a list of commands that the Docker client calls while creating an image. It's a simple way to automate the image creation process. 
+A Dockerfile is a simple text-file that contains a list of commands that the Docker client runs while creating an image. It's a simple way to automate the image creation process. 
 
 The best part is that the commands you write in a Dockerfile are almost identical to their equivalent Linux commands.
 
@@ -293,7 +312,6 @@ wen you initialize the swarm, you get a token. this token is used at the node en
 
 --------->Remove node: docker node rm <id>. If you are unable to remove the node, it may be connected to swarm. First leave the node from swarm by running:  docker swarm leave --force
 
---------->
 
 
 
@@ -377,8 +395,6 @@ These images include multiple ONBUILD triggers, which should be all you need to 
 
 In other words, the onbuild version of the image includes helpers that automate the boring parts of getting an app running. Rather than doing these tasks manually (or scripting these tasks), these images do that work.
 
-A Dockerfile is a simple text-file that contains a list of commands that the Docker client calls while creating an image. It's a simple way to automate the image creation process. The best part is that the commands you write in a Dockerfile are almost identical to their equivalent Linux commands.
-
 We start with specifying our base image. Use the FROM keyword to do that -
 
 FROM python:3-onbuild
@@ -406,7 +422,7 @@ CMD ["python", "./app.py"]
 
 Now that we have our Dockerfile, we can build our image. The docker build command does the heavy-lifting of creating a Docker image from a Dockerfile
 
-The docker build command is quite simple - it takes an optional tag name with -t and a location of the directory containing the Dockerfile.
+The docker build command is quite simple - it takes an optional tag name with -t and location of the Dockerfile.
 
 
 docker build -t sudhadn/catgif .
@@ -419,7 +435,7 @@ $ docker run -p 8888:5000 sudhadn/catgif
 
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 
-The command we just ran used port 5000 the container, and exposed this externally on port 8888. Head over to the URL with port 8888, where app should be live.
+The command we just ran used port 5000 of the container, and exposed this externally on port 8888. Head over to the URL with port 8888, where app should be live.
 
  curl http://localhost:8888   [ paste this url in browser, if no gui, use curl command)
 
@@ -544,7 +560,9 @@ PING google.com (172.217.26.238) 56(84) bytes of data.
 5 packets transmitted, 5 received, 0% packet loss, time 4006ms
 rtt min/avg/max/mdev = 1.399/1.458/1.508/0.037 ms
 
----->When you run a container the process you launch(ping localhost or ping arguement) take the PID 1 and assume init power. So when that process is terminated the docker daemon stop the container until a new process is launched (via docker start) 
+---->When you run a docker container the process you launch(ping localhost or ping arguement) take the PID 1 and assume init power. 
+
+So when that process is terminated the docker daemon stop the container until a new process is launched (via docker start) 
 
 
 ENV – Set/modify the environment variables within Containers created from the Image.
@@ -559,15 +577,20 @@ FROM ubuntu:latest
 MAINTAINER – Optional field to let you identify yourself as the maintainer of this image
 MAINTAINER Some One "someone@xyz.xyz"
 
-RUN – Specify commands to make changes to your Image . This includes updating packages, installing software, adding users, creating an initial database, setting up certificates, etc. These are the commands you would run at the command line to install and configure your application.
+RUN – Specify commands to make changes to your Image . This includes updating packages, installing software, adding users, creating an initial database, setting up certificates, etc. 
+
+These are the commands you would run at the command line to install and configure your application.
 (This command is run at the build stage of container.State of the container after a RUN command will be committed to the docker image. A Dockerfile can have many RUN steps that layer on top of one another to build the image.)
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
 
-USER – Define the default User all commands will be run as within any Container created from your Image. It can be either a UID or username
+USER – Define the default User that runs all commands within any Container created from your Image. It can be either a UID or username
 USER docker
 
-VOLUME – Creates a mount point within the Container linking it back to file systems accessible by the Docker Host. New Volumes get populated with the pre-existing contents of the specified location in the image. It is specially relevant to mention is that defining Volumes in a Dockerfile can lead to issues. Volumes should be managed with docker-compose or “docker run” commands.
+VOLUME – Creates a mount point within the Container linking it back to file systems accessible by the Docker Host. New Volumes get populated with the pre-existing contents of the specified location in the image. 
+
+It is specially relevant to mention is that defining Volumes in a Dockerfile can lead to issues. Volumes should be managed with docker-compose or “docker run” commands.
+
 VOLUME /var/log
 
 WORKDIR – Define the default working directory for the command defined in the “ENTRYPOINT” or “CMD” instructions
@@ -596,7 +619,9 @@ these solutions are clumsy(difficult to handle) at best.
 
 --->Persistent data storage is complicated:
 
-By design, all of the data inside a container disappears forever when the container is removed using "docker rm" unless you save it somewhere else first. There are ways to save data persistently in Docker, such as Docker Data Volumes, but this is arguably a challenge that still has yet to be addressed in a seamless way.
+By design, all of the data inside a container disappears forever when the container is removed using "docker rm" unless you save it somewhere else first. There are ways to save data persistently in Docker, 
+
+such as Docker Data Volumes, but this is arguably a challenge that still has yet to be addressed in a seamless way.
 
 (Before removing the container you can take container's file system as a tar using docker export)
 

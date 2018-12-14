@@ -13,10 +13,6 @@ Basically, configuration management is the automated process to manage all the c
 
 
 
-In our context: Maintaining consistency of our software configuration.Tools that help us in achieving this is Ansible, saltstack, puppet, Chef.
-
-
-
 Provisioning:
 
 Provisioning is launching your server with an operating system to make it ready to run your application. More steps might be involved, which are covered by automation and configuration management

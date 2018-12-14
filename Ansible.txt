@@ -3,7 +3,7 @@ Ansible:
 Ansible is an automation tool for provisioning, application deployment, and configuration management.Ansible is completely agent-less, meaning you don’t have to install any software on your managed hosts.
 
 
-It is used for Configuration Mangement,(is a software engineering discipline consisting of standard processes and techniques often used by organizations to manage the changes introduced to its software products or code)
+It is used for Configuration Mangement,(It is a mechanism used to make the server reach a desirable state as defined by provisioning scripts of tool's specific language(yaml) and features. Automation is, in fact, the heart of configuration management for servers)
                
                Application Deployment
 
@@ -12,6 +12,33 @@ It is used for Configuration Mangement,(is a software engineering discipline con
 ------>Orchestration:
 
 Orchestration is about bringing together different things into a coherent(logical) whole, meaning Anisble acts as an orchestartion tool to ensure all tasks happen in proper order.
+
+
+------>Ansible Terms
+
+    Controller Machine: the machine where Ansible is installed, responsible for running the provisioning on the servers you are managing
+
+    Inventory: an INI file that contains information about the servers you are managing
+
+    Playbook: the entry point for Ansible provisionings, where the automation is defined through tasks using YAML format
+
+    Task: a block that defines a single procedure to be executed, e.g.: install a package
+
+    Module: a module typically abstracts a system task, like dealing with packages or creating and changing files. Ansible has a multitude of built-in modules.
+
+    Role: a pre-defined way for organizing playbooks and other files in order to facilitate sharing and reusing portions of a playbook
+
+    Play: a provisioning executed from start to finish is called a play
+
+    Facts: global variables containing information about the system, like network interfaces or operating system
+
+  To list the fact directly in your playbook you have to set gather_facts: True in your playbook
+  gather_facts: TrueTo list the fact directly in your playbook.
+  gather_facts: True
+
+    Handlers: used to trigger service status changes, like restarting or stopping a service
+
+Ansible provisionings are written using YAML, a simple data serialization language.
 
 
 ----->Modules:
@@ -85,7 +112,11 @@ vars/
 
 Roles:
 
-Roles add organisation to playbooks. They allow you to split your complex build instructions into smaller reusable chunks, very much like a function in programming terms. This makes it possible to share your roles across different playbooks, without duplicating code.
+Roles add organisation to playbooks. They allow you to split your complex build instructions into smaller reusable chunks, very much like a function in programming terms. 
+
+This makes it possible to share your roles across different playbooks, without duplicating code.
+
+Role: a pre-defined way for organizing playbooks and other files in order to facilitate sharing and reusing portions of a provisioning
 
 For example, you may have a role for installing Nginx and configuring sensible defaults, which can be used across multiple hosting environments.
 
@@ -114,7 +145,7 @@ How Ansible Works:
 
 Relation ship between main pieces of Ansible:
 
----->Admin client establishes connection with Ansible via ssh,
+---->Admin client establishes connection with Ansible server via ssh,
 
 ---->Later, Ansible server gather facts from client like, OS and services running on it. Then, it starts running playbook on the client.
       
@@ -168,7 +199,7 @@ tasks:
     - name: Install apache2 on node machines
       yum: pkg=httpd24 state=latest
       notify:                                   [The things listed in the notify section of a task are called handlers.Handlers are lists of tasks, not really any different from regular tasks]
-        - start http/apache                       If nothing notifies a handler it will not run.Regardless of how many tasks notify a handler, it will run only once, after all of the tasks complete in a particular play.]
+        - start http/apache                       Handlers will be executed if they are triggered from notify directive.Regardless of how many tasks notify a handler, it will run only once, after all of the tasks complete in a particular play.]
 
     - name: Listen http/apache2 on port 81
       lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^Listen 80" line="Listen 81" state=present
@@ -214,11 +245,11 @@ install epel-repo by downloading it
 
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
-yum install epel-release-latest-7.noarch.rpm
+yum install epel-release-latest-7.noarch.rpm   ##install repo
 
 yum repolist all(refresh repolist)
 
-yum install ansible
+yum install ansible     ## install package
 
  yum-config-manager --disable epel ------> to disbale repo
 
@@ -243,8 +274,10 @@ yum install ansible
   sudo: yes
   tasks:
     - name: create user on multiple servers.
-	  user: uid=2018 group=docker password='i.DCLDoMLR/cA' comment=John shell=/bin/ksh generate_ssh_key=yes home=/home/John name=John state=present
+      user: uid=2018 group=docker password='i.DCLDoMLR/cA' comment=John shell=/bin/ksh generate_ssh_key=yes home=/home/John name=John state=present
 
+
+##encrypted password can be created using mkpasswd command mkpasswd --method=sha-512
 
 ---------->playbook to add multiusers on multiple servers
 
@@ -273,8 +306,8 @@ yum install ansible
 ----------->To install multiple packages using with_items:
 
 - name: install Visual software
-    yum: pkg={{item}} state=installed
-    with_items:
+  yum: pkg={{item}} state=installed
+  with_items:
      - wxmacmolplt
      - dia
      - veusz

@@ -1,6 +1,6 @@
 GIT terminology:
 
----->HEAD: the current commit your repo is on. Most of the time HEAD points to the latest commit in your current branch, but that doesn't have to be the case. HEAD really just means "what is my repo currently pointing at".
+---->HEAD: Most of the time HEAD points to the latest commit in your current branch, but that doesn't have to be the case. HEAD really just means "what is my repo currently pointing at".
 
 ----->master: the name of the default branch that git creates for you when first creating a repo. In most cases, "master" means "the main branch.
 
@@ -12,9 +12,10 @@ When you make changes, you usually want to send them back "upstream" so they mak
 
 
 
-DevOps is an approach to bridge the gap between software development and operations in an SDLC.Devops is a culture, it's a way of thinking that both DEV and OPS teams has to adopt in order to work faster to increase their poductivity.
+DevOps is an approach to bridge the gap between software development and operations in an SDLC.Devops is a culture, it's a way of thinking that both DEV and OPS teams has to adopt 
 
---->It’s a culture that you can adopt for continuous improvement. It will help you to bring your Developer Team and Operations Team on the same page, allowing them to work together with ease.
+in order to work faster to increase their poductivity.
+
 
 ---->Devops aims to deliver software and services quicker.
 
@@ -36,14 +37,18 @@ DevOps is an approach to bridge the gap between software development and operati
 
 Version Control, aka revision control or source control is the managemnt of changes to documents, computer programs, large web sites and other collections of information.
 
-It is a system that records changes to a file or set of files over time so that you can recall specific versions later.It consist of a central shared repository where teammates can commit changes to a file or set of file.
+It is a system that records changes to a file or set of files over time so that you can recall specific versions later.
+
+It consist of a central shared repository where teammates can commit changes to a files.
 
 
 ---->GIT is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 
 Git has major advantage over other VCS tools like SVN that it is a distributed version control system.”
 
-Distributed VCS tools do not necessarily rely on a central server to store all the versions of a project’s files. Instead, every developer “clones” a copy of a repository and has the full history of the project on their own hard drive
+Distributed VCS tools do not necessarily rely on a central server to store all the versions of a project’s files. 
+
+Instead, every developer “clones” a copy of a repository and has the full history of the project on their own hard drive
 
 ---->If you need to clone your respository to local desktop, need to use git clone command
 
@@ -66,7 +71,7 @@ git add . adds all modified and new (untracked) files in the current directory a
 
 ---->Each file in your working directory can be in one of two states: tracked or untracked. Tracked files are files that were in the last snapshot; In short, tracked files are files that Git knows about.
 
-Untracked files are everything else?—?any files in your working directory that were not in your last snapshot and are not in your staging area.
+Untracked files are everything else?—?any files in your working directory that were not in your previous snapshot and are not in your staging area.
 
 echo 'test123' > test.txt  ----> entered the text and created file
 
@@ -80,8 +85,9 @@ git commit -m "added test.txt" ---- giving description or message to our latest 
 
 ----( we can above 2 statements this way: git commit -a -m "modified file test.txt twice")
 
-------->Note that before you affect changes to the central repository you should always pull changes from the central repository to your local repository to get updated with the work of all the collaborators that have been contributing in the central repository. 
-For that we will use the pull command.
+------->Note that before you affect changes to the central repository you should always pull changes from the central repository to your local repository to get updated with the work of all the collaborators 
+
+that have been contributing in the central repository. For that we will use the pull command.
 
 -------->Pull
 The git pull command fetches changes from a remote repository to a local repository. It merges upstream changes in your local repository, which is a common task in Git based collaborations.
@@ -131,6 +137,18 @@ git checkout branchname
 C:\Users\dupakunt\demo-sudha>git branch
 * branch1
   master
+
+-------->Fork in git
+
+A fork is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project. 
+
+Most commonly, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea.
+
+--------->Difference between git clone and fork:
+
+Cloning involves making a copy of the git repository to a local machine, while forking the repository adds another repository to existing repositories.
+
+Forked repo will not be avaialble in your local machine.
 
 -------------->pushing your commits to remote repository from a branch
 
@@ -299,7 +317,7 @@ The two commits that were on the end of hotfix are now dangling, or orphaned com
 
 you can also get 'git reset' to alter the staged snapshot and/or the working directory by passing it one of the following flags:
 
-----> --soft – The staged snapshot and working directory are not altered in any way.
+----> --soft – The staged snapshot and working directory are not altered in any way.( working directory is typically the folder that contains the .git folder.)
 ----> --hard – The staged snapshot and the working directory are both updated to match the specified commit.
 
 -------->git revert is the best tool for undoing shared public changes

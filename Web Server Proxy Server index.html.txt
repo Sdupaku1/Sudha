@@ -65,5 +65,21 @@ If you think about IP in terms of a map, the IP layer serves as the packet GPS t
 
 In summary, TCP is the data. IP is the Internet location GPS.
 
+---------->Forward and reverse dns lookup
+
+Forward DNS lookup is uses an Internet domain name to find an IP address. Reverse DNS lookup is using an Internet IP address to find a domain name.
+
+ An Internet facility that lets you do either forward or reverse DNS lookup yourself is called nslookup.
+
+Pointer (PTR) record is used for revers DNS (Domain Name System) lookup.
+
+----->Two-factor authentication?
+ 
+Ans. Two-factor authentication is a security process in which the user provides two means of identification from separate categories of credentials; 
+
+one is typically a physical token, such as a card, and the other is typically something memorized, such as a security code
+
+
+
 
 

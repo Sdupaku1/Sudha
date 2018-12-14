@@ -474,13 +474,7 @@ Step 4: Upload your-plugin.hpi file and save.
 
 Step 5: Restart Jenkins.
 
------------>Deployment using Jenkins(with Deploy to container plugin)
 
-This plugin takes a war/ear file and deploys that to a running remote application server at the end of a build. The implementation is based on Cargo. The list of currently supported containers include:
-
-Tomcat 4.x/5.x/6.x/7.x
-JBoss 3.x/4.x
-Glassfish 2.x/3.x
 
 
 

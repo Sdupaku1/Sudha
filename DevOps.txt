@@ -1,27 +1,11 @@
 ---->What is DevOps?
 
-DevOps is a stragtegy that integrates developers and operations team to improve collaboration and productivity.
+DevOps integrates developers and operations team to improve collaboration and productivity.
 
 According to the DevOps culture, a single group of Engineers (developers, system admins, QA’s. Testers etc turned into DevOps Engineers) has end to end responsibility of the Application (Software) right from gathering the requirement to development, to testing, to infrastructure deployment, to application deployment and finally monitoring & gathering feedback from the end users, then again implementing the changes.
 
 DevOps is a software development approach which involves Continuous Development, Continuous Testing, Continuous Integration, Continuous Deployment and Continuous Monitoring of the software throughout its development life cycle.
 
-
-------->How do all these tools work together?
-
-Given below is a generic logical flow where everything gets automated for seamless delivery.However, this flow may vary from organization to organization as per the requirement.
-
-Developers develop the code and this source code is managed by Version Control System tools like Git etc.
-
-Developers send this code to the Git repository and any changes made in the code is committed to   this Repository.
-
-Jenkins pulls this code from the repository using the Git plugin and build it using tools like Ant or Maven.
-
-Configuration management tools like Ansible provisions testing environment and then Jenkins releases this code on the test environment on which testing is done using tools like selenium.
-
-Once the code is tested, Jenkins send it for deployment on the production server (even production server is provisioned & maintained by tools like puppet). 
-
-After deployment, It is continuously monitored by tools like Nagios. Docker containers provide a testing environment to test the build features.
 
 ------>DevOps Lifecycle can be broadly broken down into the below DevOps Stages:
 Continuous Development

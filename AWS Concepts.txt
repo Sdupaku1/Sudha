@@ -17,7 +17,7 @@ customer can choose between volumes backed by either a solid-state drive (SSD) o
 
 --------->Amazon s3
 
-Amazon S3 is an object storage service in AWS.Before you can upload data using Amazon S3, you must create a bucket in one of the AWS Regions to store your data in. Each object is stored as a file with its metadata included and given an ID number. 
+Amazon S3 is an object storage service in AWS.Before you can upload data to Amazon S3, you must create a bucket in one of the AWS Regions to store your data in. Each object is stored as a file with its metadata included and given an ID number. 
 
 Applications use this ID number to access an object.Developer can access an object via a rest API. S3 enables a customer to upload, store and download practically any file or object that is up to five gigabytes (5 GB) in size.
 
@@ -121,15 +121,9 @@ AN AMI is an executable image to replicate ec2 instances again so that u dont ha
 
 ------>Differentiate between vertical and horizontal scaling in AWS.
 
-The main difference between vertical and horizontal scaling is the way in which you add compute resources to your infrastructure. In vertical scaling, more power is added to the existing machine while in horizontal scaling additional resources are added into the system.
+The main difference between vertical and horizontal scaling is the way in which you add compute resources to your infrastructure. In vertical scaling, more power is added to the existing machine while in horizontal scaling additional resources are added into the system with the addition of more machines into the network so that the workload and processing is shared among multiple devices. The best way to understand the difference is imagine that you are retiring your Toyota and buying a Ferrari because you need more horsepower. This is vertical scaling. Another way to get that added horsepower is not to ditch the Toyota for the Ferrari but buy another car. This can be related to horizontal scaling where you drive several cars all at once.
 
-with the addition of more machines into the network the workload and processing is shared among multiple devices. The best way to understand the difference is imagine that you are retiring your Toyota and buying a Ferrari because you need more horsepower. This is vertical scaling. 
-
-Another way to get that added horsepower is not to ditch the Toyota for the Ferrari but buy another car. This can be related to horizontal scaling where you drive several cars all at once.
-
-When the users are up to 100, an EC2 instance alone is enough to run the entire web application or the database until the traffic ramps up. Under such circumstances when the traffic ramps up, it is better to scale vertically by increasing the capacity of the EC2 instance to meet the increasing demands of the application. 
-
-AWS supports instances up to 128 virtual cores or 488GB RAM.
+When the users are up to 100, an EC2 instance alone is enough to run the entire web application or the database until the traffic ramps up. Under such circumstances when the traffic ramps up, it is better to scale vertically by increasing the capacity of the EC2 instance to meet the increasing demands of the application. AWS supports instances up to 128 virtual cores or 488GB RAM.
 
 When the users for your application grow up to 1000 or more, vertical cannot handle requests and there is need for horizontal scaling which is achieved through distributed file system, clustering, and load balancing.
 
